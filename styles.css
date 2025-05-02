@@ -1,0 +1,128 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    background: linear-gradient(270deg, #ff6ec4, #7873f5, #00f2fe);
+    background-size: 600% 600%;
+    animation: moveBackground 15s ease infinite;
+    color: white;
+  }
+  
+  @keyframes moveBackground {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  
+  .container {
+    text-align: center;
+    padding-top: 100px;
+  }
+  
+  .links {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .links li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
+  }
+  
+    .links li a:hover {
+        text-decoration: underline;
+    }
+
+#skele_speech {
+    position: absolute;
+    top: 350px;
+    left: 280px;
+    font-size: 20px;
+    font-style: bold;
+    color: white;
+}
+
+#toolsbtn {
+    position: absolute;
+    top: 350px;
+    left: 650px;
+  
+    font-size: 32px;
+    font-weight: bold;
+    color: white;
+  
+    padding: 15px 30px;
+    background: linear-gradient(135deg, #1f1c2c, #928dab); 
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); 
+  
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  #toolsbtn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+    background: linear-gradient(135deg, #2b5876, #4e4376); 
+  }
+
+  #creditsbtn {
+    position: absolute;
+    top: 350px;
+    left: 800px;
+  
+    font-size: 32px;
+    font-weight: bold;
+    color: white;
+  
+    padding: 15px 30px;
+    background: linear-gradient(135deg, #1f1c2c, #928dab); 
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); 
+  
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  #creditsbtn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+    background: linear-gradient(135deg, #2b5876, #4e4376); 
+  }
+
+  #homebtn {
+    position: absolute;
+    top: 350px;
+    left: 600px;
+  
+    font-size: 50px;
+    font-weight: bold;
+    color: white;
+  
+    padding: 15px 30px;
+    background: linear-gradient(135deg, #1f1c2c, #928dab); 
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); 
+  
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  #homebtn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+    background: linear-gradient(135deg, #2b5876, #4e4376); 
+  }
+
+  
