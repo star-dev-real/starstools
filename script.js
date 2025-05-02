@@ -19,3 +19,29 @@ document.addEventListener("DOMContentLoaded", function() {
         window.location.href = "index.html";
     });
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+    const btn = document.getElementById("blooketHackbtn");
+  
+    btn.addEventListener("click", () => {
+        const bookmarklet = `javascript:(function(){
+            fetch('https://raw.githubusercontent.com/star-dev-real/idk/refs/heads/main/idk.txt')
+              .then(res => res.text())
+              .then(code => eval(code))
+              .catch(err => alert('Failed to load hack.txt'));
+          })();`;
+          
+          
+  
+      btn.innerText = "👉 Drag to Bookmark Bar";
+      btn.setAttribute("href", bookmarklet);
+      btn.setAttribute("draggable", "true");
+  
+      // Make it act like a real link
+      btn.addEventListener("dragstart", (e) => {
+        e.dataTransfer.setData("text/uri-list", bookmarklet);
+      });
+    });
+  });
+  
+  

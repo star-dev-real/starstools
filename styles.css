@@ -125,4 +125,26 @@ body {
     background: linear-gradient(135deg, #2b5876, #4e4376); 
   }
 
+  #blooketHackbtn {
+    padding: 15px 30px;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    background-color: #111;
+    border: none;
+    border-radius: 10px;
+    cursor: grab; 
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    text-decoration: none;
+  }
+  
+  #blooketHackbtn:hover {
+    background-color: #333;
+    transform: scale(1.05);
+  }
+  
+
+  
+
   
