@@ -85,6 +85,22 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
+document.getElementById('kahootHackbtn').addEventListener('click', function() {
+  // Create a temporary link to trigger the download
+  const url = 'Kahoothack.user.js'; // Path to your .user.js file
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = 'Kahoothack.user.js'; // Force download (optional)
+
+  // Append the link, trigger the click, then remove the link
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+
+  // Optional: Open in a new tab for Tampermonkey installation
+  window.open(url, '_blank');
+});
+
   
   
   

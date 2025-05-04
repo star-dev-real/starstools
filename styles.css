@@ -281,6 +281,56 @@ body {
     transition: all 0.3s ease;
   }
 
+  .kahootHack {
+    position: absolute;
+    top: 130px;
+    left: 25%;
+
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+
+    padding: 15px 30px;
+    background: linear-gradient(135deg, #1f1c2c, #928dab); 
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); 
+
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .blooketHack:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+    background: linear-gradient(135deg, #2b5876, #4e4376); 
+  }
+
+  #kahootHackBtn {
+    position: absolute;
+    top: 130px;
+    left: 55%;
+
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+
+    padding: 3px 70px;
+    background: linear-gradient(135deg, #1f1c2c, #928dab); 
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); 
+
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  #kahootHackBtn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+    background: linear-gradient(135deg, #2b5876, #4e4376); 
+  }
+
 
   
 
