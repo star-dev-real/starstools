@@ -53,6 +53,38 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
   });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const newsBtn = document.getElementById("newsbtn");
+    newsBtn.addEventListener("click", function () {
+        window.location.href = "news.html";
+    });
+})
+
+document.addEventListener("DOMContentLoaded", function() {
+    const contactBtn = document.getElementById("contactUsbtn");
+    contactBtn.addEventListener("click", function () {
+        window.location.href = "contact.html";
+    })
+})
+
+document.addEventListener("DOMContentLoaded", function() {
+    const submitBtn = document.getElementById("submitbtn");
+    const statusLabel = document.getElementById("statusContact");
+
+    submitBtn.addEventListener("click", function () {
+        const name = document.getElementById("nameinput").value;
+        const email = document.getElementById("emailinput").value;
+        const message = document.getElementById("messageinput").value;
+
+        if (name && email && message) {
+            statusLabel.innerText = `Status: Thank you for your message ${name}! We will be with you shortly.`;
+        } else {
+            alert("Please fill out all fields.");
+        }
+    });
+});
+
   
   
   

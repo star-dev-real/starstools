@@ -41,6 +41,7 @@ body {
         text-decoration: underline;
     }
 
+
 #skele_speech {
     position: absolute;
     top: 350px;
@@ -53,7 +54,7 @@ body {
 #toolsbtn {
     position: absolute;
     top: 350px;
-    left: 650px;
+    left: 550px;
   
     font-size: 32px;
     font-weight: bold;
@@ -78,7 +79,7 @@ body {
   #creditsbtn {
     position: absolute;
     top: 350px;
-    left: 800px;
+    left: 700px;
   
     font-size: 32px;
     font-weight: bold;
@@ -150,7 +151,7 @@ body {
     background: linear-gradient(135deg, #2b5876, #4e4376); 
   }
 
-  #toolsTitle {
+  .pageTitles {
     position: absolute;
     top: 30px;
     left: 45%;
@@ -183,9 +184,103 @@ body {
     box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
     background: linear-gradient(135deg, #2b5876, #4e4376); 
   }
+
+
+  .credits-list {
+    color: white;
+    font-size: 45px;
+    font-weight: bold;
+  }
   
+  #newsbtn {
+    position: absolute;
+    top: 350px;
+    left: 877px;
   
+    font-size: 32px;
+    font-weight: bold;
+    color: white;
   
+    padding: 15px 30px;
+    background: linear-gradient(135deg, #1f1c2c, #928dab); 
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); 
+  
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  #newsbtn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+    background: linear-gradient(135deg, #2b5876, #4e4376); 
+  }
+
+  #news-box {
+    position: absolute;
+    top: 160px;
+    left: 3%;
+  
+    font-size: 23px;
+    font-weight: bold;
+    color: white;
+  
+    padding: 100px 200px;
+    background: linear-gradient(135deg, #1f1c2c, #928dab); 
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); 
+  
+    cursor: default;
+    transition: all 0.3s ease;
+  }
+
+  #contactUsbtn {
+    position: absolute;
+    top: 350px;
+    left: 1029px;
+  
+    font-size: 32px;
+    font-weight: bold;
+    color: white;
+  
+    padding: 15px 30px;
+    background: linear-gradient(135deg, #1f1c2c, #928dab); 
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); 
+  
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  #contactUsbtn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+    background: linear-gradient(135deg, #2b5876, #4e4376); 
+  }
+
+
+  #contact-form {
+    position: absolute;
+    top: 160px;
+    left: 3%;
+  
+    font-size: 23px;
+    font-weight: bold;
+    color: white;
+  
+    padding: 100px 200px;
+    background: linear-gradient(135deg, #3a3a8a, #000000); 
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); 
+  
+    cursor: default;
+    transition: all 0.3s ease;
+  }
+
 
   
 
