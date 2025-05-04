@@ -100,12 +100,12 @@ body {
     background: linear-gradient(135deg, #2b5876, #4e4376); 
   }
 
-  #homebtn {
+  .homebtn {
     position: absolute;
-    top: 350px;
-    left: 600px;
+    top: 50px;
+    left: 1150px;
   
-    font-size: 50px;
+    font-size: 30px;
     font-weight: bold;
     color: white;
   
@@ -119,30 +119,72 @@ body {
     transition: all 0.3s ease;
   }
   
-  #homebtn:hover {
+  .homebtn:hover {
     transform: scale(1.05);
     box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
     background: linear-gradient(135deg, #2b5876, #4e4376); 
   }
 
   #blooketHackbtn {
-    padding: 15px 30px;
+    position: absolute;
+    top: 130px;
+    left: 3%;
+  
     font-size: 20px;
     font-weight: bold;
     color: white;
-    background-color: #111;
+  
+    padding: 15px 30px;
+    background: linear-gradient(135deg, #1f1c2c, #928dab); 
     border: none;
-    border-radius: 10px;
-    cursor: grab; 
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); 
+  
+    cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    text-decoration: none;
   }
   
   #blooketHackbtn:hover {
-    background-color: #333;
     transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+    background: linear-gradient(135deg, #2b5876, #4e4376); 
   }
+
+  #toolsTitle {
+    position: absolute;
+    top: 30px;
+    left: 45%;
+    font-size: 40px;
+    font-weight: bold;
+    color: white;
+  }
+
+  .blooketHack {
+    position: absolute;
+    top: 130px;
+    left: 3%;
+  
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+  
+    padding: 15px 30px;
+    background: linear-gradient(135deg, #1f1c2c, #928dab); 
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); 
+  
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .blooketHack:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+    background: linear-gradient(135deg, #2b5876, #4e4376); 
+  }
+  
+  
   
 
   

@@ -13,35 +13,48 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-document.addEventListener("DOMContentLoaded", function() {
-    const homebtn = document.getElementById("homebtn");
-    homebtn.addEventListener("click", function () {
-        window.location.href = "index.html";
+document.addEventListener("DOMContentLoaded", function () {
+    const homebtns = document.getElementsByClassName("homebtn");
+    Array.from(homebtns).forEach(btn => {
+        btn.addEventListener("click", function () {
+            window.location.href = "index.html";
+        });
     });
 });
+
 
 document.addEventListener("DOMContentLoaded", () => {
     const btn = document.getElementById("blooketHackbtn");
   
     btn.addEventListener("click", () => {
-        const bookmarklet = `javascript:(function(){
-            fetch('https://raw.githubusercontent.com/star-dev-real/idk/refs/heads/main/idk.txt')
-              .then(res => res.text())
-              .then(code => eval(code))
-              .catch(err => alert('Failed to load hack.txt'));
-          })();`;
-          
-          
+      fetch("hack.js")
+        .then(response => response.text())
+        .then(data => {
+          const bookmarklet = data.trim();
   
-      btn.innerText = "👉 Drag to Bookmark Bar";
-      btn.setAttribute("href", bookmarklet);
-      btn.setAttribute("draggable", "true");
+          // Create the <a> element
+          const link = document.createElement("a");
+          link.className = "blooketHack";
+          link.innerText = "👉 Drag to Bookmark Bar";
+          link.setAttribute("href", bookmarklet);
+          link.setAttribute("draggable", "true");
   
-      // Make it act like a real link
-      btn.addEventListener("dragstart", (e) => {
-        e.dataTransfer.setData("text/uri-list", bookmarklet);
-      });
+          // Make it draggable to bookmark bar
+          link.addEventListener("dragstart", (e) => {
+            e.dataTransfer.setData("text/uri-list", bookmarklet);
+          });
+  
+          // Replace the button with the new <a> element
+          btn.replaceWith(link);
+        })
+        .catch(err => {
+          console.error("Failed to fetch hack.js:", err);
+          btn.innerText = "❌ Failed to load script";
+        });
     });
   });
+  
+  
+  
   
   
