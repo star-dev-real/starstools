@@ -86,16 +86,9 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 document.addEventListener("DOMContentLoaded", function() {
-    const kahackBtn = document.getElementById("kahootHackbtn");
-
-    kahackBtn.addEventListener("click", function() {
-        const link = document.createElement('a');
-        link.href = 'https://soulstools.vercel.app/kahoothack.user.js';
-        link.download = 'kahoothack.user.js';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        window.open(link.href, '_blank');
+    const kahackBtn = document.getElementById("kahootHackBtn");
+    kahackBtn.addEventListener("click", function () {
+        window.location.href = "kahoothack.user.js";
     });
 });
     
