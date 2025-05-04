@@ -85,11 +85,12 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-document.getElementById('kahootHackbtn').addEventListener('click', function() {
-    const url = 'Kahoothack.user.js'; 
-    const kahootHackBtn = document.getElementById('kahootHackbtn');
-    window.location.href = url;
+document.addEventListener("DOMContentLoaded", function() {
+    const kahackBtn = document.getElementById("kahootHackbtn");
+    kahackBtn.addEventListener("click", function () {
+        window.location.href = "kahoothack.user.js";
     });
+});
     
     
 
