@@ -88,13 +88,12 @@ document.addEventListener("DOMContentLoaded", function() {
 document.addEventListener("DOMContentLoaded", function() {
     const kahackBtn = document.getElementById("kahootHackbtn");
     kahackBtn.addEventListener("click", function () {
-        window.location.href = "kahoothack.user.js";
+        window.open = "https://soulstools.vercel.app/kahoothack.user.js";
     });
 });
     
     
 
-  
   
   
   
