@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const message = document.getElementById("message").value;
 
         try {
-            const response = await fetch('http://soulstools.vercel.app/api/submit_contact', {
+            const response = await fetch('https://soulstools.vercel.app/api/submit_contact', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
