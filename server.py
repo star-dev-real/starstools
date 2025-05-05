@@ -1,31 +1,56 @@
-from flask import Flask, request, jsonify, send_from_directory
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 
+# Initialize Flask app
 app = Flask(__name__)
-CORS(app)  # This allows your Vercel frontend to access the API
+CORS(app)  # Enable CORS for all routes
 
+# Temporary storage for messages (replace with database in production)
 messages = []
 
 @app.route('/api/submit_contact', methods=['POST'])
 def submit_contact():
+    """Handle contact form submissions from your Vercel frontend"""
     try:
         data = request.json
-        name = data.get('name')
-        email = data.get('email')
-        message = data.get('message')
         
-        if not all([name, email, message]):
-            return jsonify({"status": "error", "message": "All fields are required"}), 400
+        # Validate required fields
+        if not all(k in data for k in ['name', 'email', 'message']):
+            return jsonify({
+                "status": "error",
+                "message": "All fields (name, email, message) are required"
+            }), 400
         
-        messages.append({"name": name, "email": email, "message": message})
-        print(f"New message from {name} ({email})")
+        # Store the message
+        messages.append({
+            "name": data['name'],
+            "email": data['email'],
+            "message": data['message']
+        })
+        
+        # Log to Pella's console (viewable in dashboard)
+        print(f"New contact submission from {data['name']} ({data['email']})")
         
         return jsonify({
             "status": "success",
-            "message": f"Thank you, {name}! We'll contact you soon."
+            "message": f"Thank you {data['name']}! We'll contact you soon."
         })
+        
     except Exception as e:
-        return jsonify({"status": "error", "message": str(e)}), 500
+        print(f"Error processing contact form: {str(e)}")
+        return jsonify({
+            "status": "error",
+            "message": "An internal server error occurred"
+        }), 500
+
+@app.route('/')
+def health_check():
+    """Basic route to verify server is running"""
+    return jsonify({
+        "status": "running",
+        "service": "Soul's Tools Backend",
+        "domain": "redskink.onpella.app"
+    })
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8080)
+    app.run(host='0.0.0.0')  # Pella handles port assignment
