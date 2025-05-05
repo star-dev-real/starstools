@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData)
+        body: {"name": form.elements['name'].value.trim(), "email": form.elements['email'].value.trim(), "message": form.elements['message'].value.trim()}
       });
 
       const result = await response.json();
