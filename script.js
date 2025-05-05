@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     
-    submitBtn.disabled = false;
+    submitBtn.disabled = true; 
     statusEl.textContent = 'Sending message...';
     statusEl.style.color = 'black';
 
@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: {"name": form.elements['name'].value.trim(), "email": form.elements['email'].value.trim(), "message": form.elements['message'].value.trim()}
+        body: JSON.stringify(formData) 
       });
 
       const result = await response.json();
@@ -132,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
         throw new Error(result.message || 'Submission failed');
       }
 
-      statusEl.textContent = result.message;
+      statusEl.textContent = result.message || 'Message sent successfully!';
       statusEl.style.color = 'green';
       form.reset();
       
