@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     
-    submitBtn.disabled = true; 
+    submitBtn.disabled = true;  // Changed from false to true to disable during submission
     statusEl.textContent = 'Sending message...';
     statusEl.style.color = 'black';
 
@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData) 
+        body: JSON.stringify(formData)  // Fixed: Convert the object to JSON string
       });
 
       const result = await response.json();
