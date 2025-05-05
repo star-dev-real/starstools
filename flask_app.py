@@ -3,7 +3,7 @@ from flask_cors import CORS
 
 # Initialize Flask app
 app = Flask(__name__)
-CORS(app)  
+CORS(app)
 
 messages = []
 
@@ -45,8 +45,8 @@ def health_check():
     return jsonify({
         "status": "running",
         "service": "Soul's Tools Backend",
-        "domain": "redskink.onpella.app"
+        "domain": "soulstools.vercel.app"
     })
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port="8080")  
+    app.run(host='0.0.0.0', port="8080")
