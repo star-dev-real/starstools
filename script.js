@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const message = document.getElementById("message").value;
 
         try {
-            const response = await fetch('https://souuuulll.pythonanywhere.com/api/submit_contact', {
+            const response = await fetch('https://www.pythonanywhere.com/user/Souuuulll/webapps/#tab_id_souuuulll_pythonanywhere_com/api/submit_contact', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
