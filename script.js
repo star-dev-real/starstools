@@ -98,24 +98,30 @@ document.addEventListener('DOMContentLoaded', () => {
   const statusEl = document.getElementById('status');
   const submitBtn = document.querySelector('#contact-form button[type="submit"]');
   
-  if (!form) return;
+  if (!form || !submitBtn) return; 
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     
-    submitBtn.disabled = true;  // Changed from false to true to disable during submission
-    statusEl.textContent = 'Sending message...';
-    statusEl.style.color = 'black';
-
     try {
+      submitBtn.disabled = true;
+      statusEl.textContent = 'Sending message...';
+      statusEl.style.color = 'black';
+
       const formData = {
         name: form.elements['name'].value.trim(),
         email: form.elements['email'].value.trim(),
         message: form.elements['message'].value.trim()
       };
 
+
       if (!formData.name || !formData.email || !formData.message) {
         throw new Error('All fields are required');
+      }
+
+
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+        throw new Error('Please enter a valid email address');
       }
 
       const response = await fetch('https://souuuulll.pythonanywhere.com/api/submit_contact', {
@@ -123,19 +129,21 @@ document.addEventListener('DOMContentLoaded', () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData)  // Fixed: Convert the object to JSON string
+        body: JSON.stringify(formData)
       });
 
-      const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.message || 'Submission failed');
+        const errorData = await response.json();
+        throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
       }
+
+      const result = await response.json();
 
       statusEl.textContent = result.message || 'Message sent successfully!';
       statusEl.style.color = 'green';
       form.reset();
-      
+
       setTimeout(() => {
         statusEl.textContent = '';
       }, 5000);
@@ -145,7 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
       statusEl.style.color = 'red';
       console.error('Submission error:', error);
     } finally {
-      submitBtn.disabled = false;
+      submitBtn.disabled = false; 
     }
   });
 });
