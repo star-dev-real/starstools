@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     
-    submitBtn.disabled = true;
+    submitBtn.disabled = false;
     statusEl.textContent = 'Sending message...';
     statusEl.style.color = 'black';
 
@@ -141,7 +141,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 5000);
 
     } catch (error) {
-      // Error handling
       statusEl.textContent = `Error: ${error.message}`;
       statusEl.style.color = 'red';
       console.error('Submission error:', error);
