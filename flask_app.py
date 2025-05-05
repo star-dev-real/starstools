@@ -3,9 +3,8 @@ from flask_cors import CORS
 
 # Initialize Flask app
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
+CORS(app)  
 
-# Temporary storage for messages (replace with database in production)
 messages = []
 
 @app.route('/api/submit_contact', methods=['POST'])
@@ -13,29 +12,26 @@ def submit_contact():
     """Handle contact form submissions from your Vercel frontend"""
     try:
         data = request.json
-        
-        # Validate required fields
+
         if not all(k in data for k in ['name', 'email', 'message']):
             return jsonify({
                 "status": "error",
                 "message": "All fields (name, email, message) are required"
             }), 400
-        
-        # Store the message
+
         messages.append({
             "name": data['name'],
             "email": data['email'],
             "message": data['message']
         })
-        
-        # Log to Pella's console (viewable in dashboard)
+
         print(f"New contact submission from {data['name']} ({data['email']})")
-        
+
         return jsonify({
             "status": "success",
             "message": f"Thank you {data['name']}! We'll contact you soon."
         })
-        
+
     except Exception as e:
         print(f"Error processing contact form: {str(e)}")
         return jsonify({
@@ -53,4 +49,4 @@ def health_check():
     })
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')  # Pella handles port assignment
+    app.run(host='0.0.0.0', port="8080")  
