@@ -1,337 +1,336 @@
 body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    height: 100vh;
-    background: linear-gradient(270deg, #ff6ec4, #7873f5, #00f2fe);
-    background-size: 600% 600%;
-    animation: moveBackground 15s ease infinite;
-    color: white;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  height: 100vh;
+  background: linear-gradient(270deg, #ff6ec4, #7873f5, #00f2fe);
+  background-size: 600% 600%;
+  animation: moveBackground 15s ease infinite;
+  color: white;
+}
+
+@keyframes moveBackground {
+  0% {
+    background-position: 0% 50%;
   }
-  
-  @keyframes moveBackground {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
+  50% {
+    background-position: 100% 50%;
   }
-  
-  .container {
-    text-align: center;
-    padding-top: 100px;
+  100% {
+    background-position: 0% 50%;
   }
-  
-  .links {
-    list-style: none;
-    padding: 0;
+}
+
+.container {
+  text-align: center;
+  padding-top: 100px;
+}
+
+.links {
+  list-style: none;
+  padding: 0;
+}
+
+.links li a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.2rem;
+}
+
+  .links li a:hover {
+      text-decoration: underline;
   }
-  
-  .links li a {
-    color: white;
-    text-decoration: none;
-    font-size: 1.2rem;
-  }
-  
-    .links li a:hover {
-        text-decoration: underline;
-    }
 
 
 #skele_speech {
-    position: absolute;
-    top: 350px;
-    left: 280px;
-    font-size: 20px;
-    font-style: bold;
-    color: white;
+  position: absolute;
+  top: 350px;
+  left: 280px;
+  font-size: 20px;
+  font-style: bold;
+  color: white;
 }
 
 #toolsbtn {
-    position: absolute;
-    top: 350px;
-    left: 550px;
-  
-    font-size: 32px;
-    font-weight: bold;
-    color: white;
-  
-    padding: 15px 30px;
-    background: linear-gradient(135deg, #1f1c2c, #928dab); 
-    border: none;
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); 
-  
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-  
-  #toolsbtn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
-    background: linear-gradient(135deg, #2b5876, #4e4376); 
-  }
+  position: absolute;
+  top: 350px;
+  left: 550px;
 
-  #creditsbtn {
-    position: absolute;
-    top: 350px;
-    left: 700px;
-  
-    font-size: 32px;
-    font-weight: bold;
-    color: white;
-  
-    padding: 15px 30px;
-    background: linear-gradient(135deg, #1f1c2c, #928dab); 
-    border: none;
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); 
-  
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-  
-  #creditsbtn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
-    background: linear-gradient(135deg, #2b5876, #4e4376); 
-  }
+  font-size: 32px;
+  font-weight: bold;
+  color: white;
 
-  .homebtn {
-    position: absolute;
-    top: 50px;
-    left: 1150px;
-  
-    font-size: 30px;
-    font-weight: bold;
-    color: white;
-  
-    padding: 15px 30px;
-    background: linear-gradient(135deg, #1f1c2c, #928dab); 
-    border: none;
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); 
-  
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-  
-  .homebtn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
-    background: linear-gradient(135deg, #2b5876, #4e4376); 
-  }
+  padding: 15px 30px;
+  background: linear-gradient(135deg, #1f1c2c, #928dab); 
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); 
 
-  #blooketHackbtn {
-    position: absolute;
-    top: 130px;
-    left: 3%;
-  
-    font-size: 20px;
-    font-weight: bold;
-    color: white;
-  
-    padding: 15px 30px;
-    background: linear-gradient(135deg, #1f1c2c, #928dab); 
-    border: none;
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); 
-  
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-  
-  #blooketHackbtn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
-    background: linear-gradient(135deg, #2b5876, #4e4376); 
-  }
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
 
-  .pageTitles {
-    position: absolute;
-    top: 30px;
-    left: 45%;
-    font-size: 40px;
-    font-weight: bold;
-    color: white;
-  }
+#toolsbtn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+  background: linear-gradient(135deg, #2b5876, #4e4376); 
+}
 
-  .blooketHack {
-    position: absolute;
-    top: 130px;
-    left: 3%;
-  
-    font-size: 20px;
-    font-weight: bold;
-    color: white;
-  
-    padding: 15px 30px;
-    background: linear-gradient(135deg, #1f1c2c, #928dab); 
-    border: none;
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); 
-  
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
+#creditsbtn {
+  position: absolute;
+  top: 350px;
+  left: 700px;
 
-  .blooketHack:hover {
-    transform: scale(1.05);
-    box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
-    background: linear-gradient(135deg, #2b5876, #4e4376); 
-  }
+  font-size: 32px;
+  font-weight: bold;
+  color: white;
 
+  padding: 15px 30px;
+  background: linear-gradient(135deg, #1f1c2c, #928dab); 
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); 
 
-  .credits-list {
-    color: white;
-    font-size: 45px;
-    font-weight: bold;
-  }
-  
-  #newsbtn {
-    position: absolute;
-    top: 350px;
-    left: 877px;
-  
-    font-size: 32px;
-    font-weight: bold;
-    color: white;
-  
-    padding: 15px 30px;
-    background: linear-gradient(135deg, #1f1c2c, #928dab); 
-    border: none;
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); 
-  
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
 
-  #newsbtn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
-    background: linear-gradient(135deg, #2b5876, #4e4376); 
-  }
+#creditsbtn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+  background: linear-gradient(135deg, #2b5876, #4e4376); 
+}
 
-  #news-box {
-    position: absolute;
-    top: 160px;
-    left: 3%;
-  
-    font-size: 23px;
-    font-weight: bold;
-    color: white;
-  
-    padding: 100px 200px;
-    background: linear-gradient(135deg, #1f1c2c, #928dab); 
-    border: none;
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); 
-  
-    cursor: default;
-    transition: all 0.3s ease;
-  }
+.homebtn {
+  position: absolute;
+  top: 50px;
+  left: 1150px;
 
-  #contactUsbtn {
-    position: absolute;
-    top: 350px;
-    left: 1029px;
-  
-    font-size: 32px;
-    font-weight: bold;
-    color: white;
-  
-    padding: 15px 30px;
-    background: linear-gradient(135deg, #1f1c2c, #928dab); 
-    border: none;
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); 
-  
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
+  font-size: 30px;
+  font-weight: bold;
+  color: white;
 
-  #contactUsbtn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
-    background: linear-gradient(135deg, #2b5876, #4e4376); 
-  }
+  padding: 15px 30px;
+  background: linear-gradient(135deg, #1f1c2c, #928dab); 
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); 
+
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.homebtn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+  background: linear-gradient(135deg, #2b5876, #4e4376); 
+}
+
+#blooketHackbtn {
+  position: absolute;
+  top: 130px;
+  left: 3%;
+
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+
+  padding: 15px 30px;
+  background: linear-gradient(135deg, #1f1c2c, #928dab); 
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); 
+
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#blooketHackbtn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+  background: linear-gradient(135deg, #2b5876, #4e4376); 
+}
+
+.pageTitles {
+  position: absolute;
+  top: 30px;
+  left: 45%;
+  font-size: 40px;
+  font-weight: bold;
+  color: white;
+}
+
+.blooketHack {
+  position: absolute;
+  top: 130px;
+  left: 3%;
+
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+
+  padding: 15px 30px;
+  background: linear-gradient(135deg, #1f1c2c, #928dab); 
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); 
+
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.blooketHack:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+  background: linear-gradient(135deg, #2b5876, #4e4376); 
+}
 
 
-  #contact-form {
-    position: absolute;
-    top: 160px;
-    left: 3%;
-  
-    font-size: 23px;
-    font-weight: bold;
-    color: white;
-  
-    padding: 100px 200px;
-    background: linear-gradient(135deg, #3a3a8a, #000000); 
-    border: none;
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); 
-  
-    cursor: default;
-    transition: all 0.3s ease;
-  }
+.credits-list {
+  color: white;
+  font-size: 45px;
+  font-weight: bold;
+}
 
-  .kahootHack {
-    position: absolute;
-    top: 130px;
-    left: 25%;
+#newsbtn {
+  position: absolute;
+  top: 350px;
+  left: 877px;
 
-    font-size: 20px;
-    font-weight: bold;
-    color: white;
+  font-size: 32px;
+  font-weight: bold;
+  color: white;
 
-    padding: 15px 30px;
-    background: linear-gradient(135deg, #1f1c2c, #928dab); 
-    border: none;
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); 
+  padding: 15px 30px;
+  background: linear-gradient(135deg, #1f1c2c, #928dab); 
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); 
 
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
 
-  .blooketHack:hover {
-    transform: scale(1.05);
-    box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
-    background: linear-gradient(135deg, #2b5876, #4e4376); 
-  }
+#newsbtn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+  background: linear-gradient(135deg, #2b5876, #4e4376); 
+}
 
-  #kahootHackBtn {
-    position: absolute;
-    top: 195px;
-    left: 3%;
+#news-box {
+  position: absolute;
+  top: 160px;
+  left: 3%;
 
-    font-size: 20px;
-    font-weight: bold;
-    color: white;
+  font-size: 23px;
+  font-weight: bold;
+  color: white;
 
-    padding: 15px 33px;
-    background: linear-gradient(135deg, #1f1c2c, #928dab); 
-    border: none;
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); 
+  padding: 100px 200px;
+  background: linear-gradient(135deg, #1f1c2c, #928dab); 
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); 
 
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
+  cursor: default;
+  transition: all 0.3s ease;
+}
 
-  #kahootHackBtn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
-    background: linear-gradient(135deg, #2b5876, #4e4376); 
-  }
+#contactUsbtn {
+  position: absolute;
+  top: 350px;
+  left: 1029px;
+
+  font-size: 32px;
+  font-weight: bold;
+  color: white;
+
+  padding: 15px 30px;
+  background: linear-gradient(135deg, #1f1c2c, #928dab); 
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); 
+
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#contactUsbtn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+  background: linear-gradient(135deg, #2b5876, #4e4376); 
+}
 
 
-  
+#contact-form {
+  position: absolute;
+  top: 160px;
+  left: 3%;
 
-  
+  font-size: 23px;
+  font-weight: bold;
+  color: white;
+
+  padding: 100px 200px;
+  background: linear-gradient(135deg, #3a3a8a, #000000); 
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); 
+
+  cursor: default;
+  transition: all 0.3s ease;
+}
+
+.kahootHack {
+  position: absolute;
+  top: 130px;
+  left: 25%;
+
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+
+  padding: 15px 30px;
+  background: linear-gradient(135deg, #1f1c2c, #928dab); 
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); 
+
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.blooketHack:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+  background: linear-gradient(135deg, #2b5876, #4e4376); 
+}
+
+#kahootHackBtn {
+  position: absolute;
+  top: 195px;
+  left: 3%;
+
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+
+  padding: 15px 33px;
+  background: linear-gradient(135deg, #1f1c2c, #928dab); 
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); 
+
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#kahootHackBtn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+  background: linear-gradient(135deg, #2b5876, #4e4376); 
+}
+
+
+
+
