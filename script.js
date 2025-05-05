@@ -93,52 +93,60 @@ document.addEventListener("DOMContentLoaded", function() {
 });
     
 
-document.addEventListener("DOMContentLoaded", function() {
-    const contactForm = document.getElementById("contact-form");
-    const statusLabel = document.getElementById("statusContact");
-    const submitBtn = document.getElementById("submit-btn");
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('contact-form');
+  const statusEl = document.getElementById('status');
+  const submitBtn = document.querySelector('#contact-form button[type="submit"]');
+  
+  if (!form) return;
 
-    contactForm.addEventListener("submit", async function(e) {
-        e.preventDefault();
-        
-        // Disable button during submission
-        submitBtn.disabled = true;
-        statusLabel.innerText = "Status: Sending...";
-        statusLabel.style.color = "#000"; // Neutral color
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    submitBtn.disabled = true;
+    statusEl.textContent = 'Sending message...';
+    statusEl.style.color = 'black';
 
-        try {
-            const response = await fetch('https://souuuulll.pythonanywhere.com/api/submit_contact', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    name: document.getElementById("name").value.trim(),
-                    email: document.getElementById("email").value.trim(),
-                    message: document.getElementById("message").value.trim()
-                }),
-            });
-            
-            const data = await response.json();
-            
-            if (!response.ok) {
-                throw new Error(data.message || 'Server error');
-            }
+    try {
+      const formData = {
+        name: form.elements['name'].value.trim(),
+        email: form.elements['email'].value.trim(),
+        message: form.elements['message'].value.trim()
+      };
 
-            statusLabel.innerText = `Status: ${data.message}`;
-            statusLabel.style.color = "#4CAF50"; 
-            
-            if (data.status === "success") {
-                contactForm.reset();
-                // Optional: Hide status after 5 seconds
-                setTimeout(() => statusLabel.innerText = "", 5000);
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            statusLabel.innerText = `Status: ${error.message || 'Failed to send message'}`;
-            statusLabel.style.color = "#F44336"; 
-        } finally {
-            submitBtn.disabled = false;
-        }
-    });
+      if (!formData.name || !formData.email || !formData.message) {
+        throw new Error('All fields are required');
+      }
+
+      const response = await fetch('https://souuuulll.pythonanywhere.com/api/submit_contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message || 'Submission failed');
+      }
+
+      statusEl.textContent = result.message;
+      statusEl.style.color = 'green';
+      form.reset();
+      
+      setTimeout(() => {
+        statusEl.textContent = '';
+      }, 5000);
+
+    } catch (error) {
+      // Error handling
+      statusEl.textContent = `Error: ${error.message}`;
+      statusEl.style.color = 'red';
+      console.error('Submission error:', error);
+    } finally {
+      submitBtn.disabled = false;
+    }
+  });
 });
