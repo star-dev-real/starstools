@@ -96,13 +96,15 @@ document.addEventListener("DOMContentLoaded", function() {
 document.addEventListener("DOMContentLoaded", function() {
     const contactForm = document.getElementById("contact-form");
     const statusLabel = document.getElementById("statusContact");
+    const submitBtn = document.getElementById("submit-btn");
 
     contactForm.addEventListener("submit", async function(e) {
         e.preventDefault();
         
-        const name = document.getElementById("name").value;
-        const email = document.getElementById("email").value;
-        const message = document.getElementById("message").value;
+        // Disable button during submission
+        submitBtn.disabled = true;
+        statusLabel.innerText = "Status: Sending...";
+        statusLabel.style.color = "#000"; // Neutral color
 
         try {
             const response = await fetch('https://souuuulll.pythonanywhere.com/api/submit_contact', {
@@ -111,24 +113,32 @@ document.addEventListener("DOMContentLoaded", function() {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    name: name,
-                    email: email,
-                    message: message
+                    name: document.getElementById("name").value.trim(),
+                    email: document.getElementById("email").value.trim(),
+                    message: document.getElementById("message").value.trim()
                 }),
             });
             
             const data = await response.json();
+            
+            if (!response.ok) {
+                throw new Error(data.message || 'Server error');
+            }
+
             statusLabel.innerText = `Status: ${data.message}`;
+            statusLabel.style.color = "#4CAF50"; 
             
             if (data.status === "success") {
                 contactForm.reset();
+                // Optional: Hide status after 5 seconds
+                setTimeout(() => statusLabel.innerText = "", 5000);
             }
         } catch (error) {
             console.error('Error:', error);
-            statusLabel.innerText = "Status: Failed to send message. Please try again later.";
+            statusLabel.innerText = `Status: ${error.message || 'Failed to send message'}`;
+            statusLabel.style.color = "#F44336"; 
+        } finally {
+            submitBtn.disabled = false;
         }
     });
 });
-
-  
-  
