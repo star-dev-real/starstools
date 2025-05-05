@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const message = document.getElementById("message").value;
 
         try {
-            const response = await fetch('http://apricotbug.onpella.app/api/submit_contact', {
+            const response = await fetch('http://apricotbug.onpella.app/api/submit_contact:80', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
