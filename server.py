@@ -54,6 +54,11 @@ def contact():
     except Exception as e:
         app.logger.error(f"Error: {str(e)}")
         return jsonify({"error": "Internal server error"}), 500
+    
+@app.route('/')
+def index():
+    return jsonify({"message": "Welcome to the Contact API"}), 200
+
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=8081)
