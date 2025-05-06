@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Mobile menu toggle
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
     const nav = document.querySelector('nav');
     
@@ -9,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Close mobile menu when clicking a link
+
     const navLinks = document.querySelectorAll('nav a');
     navLinks.forEach(link => {
         link.addEventListener('click', function() {
@@ -17,7 +16,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Tool purchase modal
     const purchaseBtns = document.querySelectorAll('.purchase-btn');
     const modal = document.getElementById('purchase-modal');
     const modalToolName = document.getElementById('modal-tool-name');
@@ -33,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 modalToolName.textContent = toolName;
                 modalToolPrice.textContent = toolPrice;
                 modal.style.display = 'flex';
-                document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+                document.body.style.overflow = 'hidden'; 
             });
         });
 
@@ -50,52 +48,62 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Contact form handling
     const contactForm = document.getElementById('contact-form');
     if (contactForm) {
         contactForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
+            e.preventDefault(); 
             
             const submitBtn = contactForm.querySelector('button[type="submit"]');
             const statusEl = document.getElementById('statusContact');
-            
+            const formElements = contactForm.elements;
+
             submitBtn.disabled = true;
             statusEl.textContent = 'Sending message...';
             statusEl.style.color = 'var(--secondary-color)';
-            
+
             try {
                 const formData = {
-                    name: contactForm.elements['name'].value.trim(),
-                    email: contactForm.elements['email'].value.trim(),
-                    message: contactForm.elements['message'].value.trim()
+                    name: formElements.name.value.trim(),
+                    email: formElements.email.value.trim(),
+                    message: formElements.message.value.trim()
                 };
 
-                // Basic validation
                 if (!formData.name || !formData.email || !formData.message) {
-                    throw new Error('All fields are required');
+                    throw new Error('Please fill in all required fields');
                 }
 
                 if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
                     throw new Error('Please enter a valid email address');
                 }
+                const response = await fetch('http://localhost:5000/api/v1/contact', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
 
-                // In a real implementation, you would send this to your server
-                // For now, we'll simulate a successful submission
-                await new Promise(resolve => setTimeout(resolve, 1000));
-                
-                statusEl.textContent = 'Message sent successfully! We will contact you soon.';
+                const responseText = await response.text();
+                const data = responseText ? JSON.parse(responseText) : {};
+
+                if (!response.ok) {
+                    throw new Error(data.error || `Server error: ${response.status}`);
+                }
+
+                statusEl.textContent = `Message sent successfully! ID: ${data.id}`;
                 statusEl.style.color = 'var(--success-color)';
                 contactForm.reset();
+
             } catch (error) {
                 statusEl.textContent = `Error: ${error.message}`;
                 statusEl.style.color = 'var(--error-color)';
+                console.error('Submission error:', error);
             } finally {
                 submitBtn.disabled = false;
             }
         });
     }
 
-    // Add active class to current page link
     const currentPage = location.pathname.split('/').pop() || 'index.html';
     const links = document.querySelectorAll('nav a');
     

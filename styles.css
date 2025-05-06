@@ -198,7 +198,6 @@ footer {
     margin-top: auto;
 }
 
-/* Modal styles */
 .modal {
     display: none;
     position: fixed;
@@ -229,7 +228,6 @@ footer {
     cursor: pointer;
 }
 
-/* Contact form styles */
 #contact-form {
     background-color: white;
     padding: 2rem;
@@ -263,7 +261,6 @@ footer {
     font-weight: 500;
 }
 
-/* Responsive styles */
 @media (max-width: 768px) {
     nav {
         display: none;
@@ -294,7 +291,6 @@ footer {
     }
 }
 
-/* Credits Page Styles */
 .credits-section {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -336,7 +332,6 @@ footer {
     font-size: 0.9rem;
 }
 
-/* News Page Styles */
 .news-article {
     background-color: white;
     padding: 2rem;
@@ -364,7 +359,6 @@ footer {
     margin-bottom: 1rem;
 }
 
-/* Responsive Adjustments */
 @media (max-width: 768px) {
     .credits-section {
         grid-template-columns: 1fr;
@@ -378,3 +372,4 @@ footer {
         padding: 1.5rem;
     }
 }
+
