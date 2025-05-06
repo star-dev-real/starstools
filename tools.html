@@ -3,16 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tools</title>
+    <title>Our Tools - Soul's Tools</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <div class="container">
-        <h1 class="pageTitles">Tools</h1>
-    <a id="blooketHackbtn">Blooket Cheats</a>
-    <button id="kahootHackBtn">Kahoot Cheats</button>
-    <button class="homebtn">Home</button>
+    <header>
+        <div class="logo">Soul's Tools</div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="tools.html" class="active">Tools</a>
+            <a href="news.html">News</a>
+            <a href="credits.html">Credits</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+        <div class="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </div>
+    </header>
 
-<script src="script.js"></script>
+    <main class="container">
+        <h1 class="page-title">Our Tools</h1>
+        
+        <div class="tools-grid">
+            <div class="tool-card">
+                <div class="tool-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Blooket_logo.png/1200px-Blooket_logo.png')"></div>
+                <div class="tool-info">
+                    <h3>Blooket Cheats</h3>
+                    <p class="tool-description">Premium cheats for Blooket games with auto-answer and other features.</p>
+                    <p class="tool-price">$10.00</p>
+                    <button class="btn primary purchase-btn" data-tool="Blooket Cheats">Purchase</button>
+                </div>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-image" style="background-image: url('https://img.icons8.com/?size=512&id=JHqfaUfF7bLY&format=png')"></div>
+                <div class="tool-info">
+                    <h3>Kahoot Cheats</h3>
+                    <p class="tool-description">Advanced Kahoot hacks with answer reveal and bot features.</p>
+                    <p class="tool-price">$12.00</p>
+                    <button class="btn primary purchase-btn" data-tool="Kahoot Cheats">Purchase</button>
+                </div>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-image" style="background-image: url('data:image/png;base64,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')"></div>
+                <div class="tool-info">
+                    <h3>Bedrock Automation</h3>
+                    <p class="tool-description">Automate your Bedrock Learning tasks with this powerful tool.</p>
+                    <p class="tool-price">$15.00</p>
+                    <button class="btn primary purchase-btn" data-tool="Bedrock Automation">Purchase</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="purchase-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h2>Purchase <span id="modal-tool-name"></span></h2>
+                <p>Price: <span id="modal-tool-price"></span></p>
+                <p>Currently we only accept cash payments. Please contact us to arrange payment and delivery.</p>
+                <a href="contact.html" class="btn primary">Contact Us</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Soul's Tools. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>

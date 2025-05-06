@@ -1,159 +1,107 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const toolsBtn = document.getElementById("toolsbtn");
+document.addEventListener('DOMContentLoaded', function() {
+    // Mobile menu toggle
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const nav = document.querySelector('nav');
+    
+    if (mobileMenuBtn && nav) {
+        mobileMenuBtn.addEventListener('click', function() {
+            nav.classList.toggle('show');
+        });
+    }
 
-    toolsBtn.addEventListener("click", function () {
-        window.location.href = "tools.html";
-    });
-});
-
-document.addEventListener("DOMContentLoaded", function() {
-    const creditsBtn = document.getElementById("creditsbtn");
-    creditsBtn.addEventListener("click", function () {
-        window.location.href = "credits.html";
-    });
-});
-
-document.addEventListener("DOMContentLoaded", function () {
-    const homebtns = document.getElementsByClassName("homebtn");
-    Array.from(homebtns).forEach(btn => {
-        btn.addEventListener("click", function () {
-            window.location.href = "index.html";
+    // Close mobile menu when clicking a link
+    const navLinks = document.querySelectorAll('nav a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            nav.classList.remove('show');
         });
     });
-});
 
+    // Tool purchase modal
+    const purchaseBtns = document.querySelectorAll('.purchase-btn');
+    const modal = document.getElementById('purchase-modal');
+    const modalToolName = document.getElementById('modal-tool-name');
+    const modalToolPrice = document.getElementById('modal-tool-price');
+    const closeModal = document.querySelector('.close-modal');
 
-document.addEventListener("DOMContentLoaded", () => {
-    const btn = document.getElementById("blooketHackbtn");
-  
-    btn.addEventListener("click", () => {
-      fetch("hack.js")
-        .then(response => response.text())
-        .then(data => {
-          const bookmarklet = data.trim();
-  
-          // Create the <a> element
-          const link = document.createElement("a");
-          link.className = "blooketHack";
-          link.innerText = "👉 Drag to Bookmark Bar";
-          link.setAttribute("href", bookmarklet);
-          link.setAttribute("draggable", "true");
-  
-          // Make it draggable to bookmark bar
-          link.addEventListener("dragstart", (e) => {
-            e.dataTransfer.setData("text/uri-list", bookmarklet);
-          });
-  
-          // Replace the button with the new <a> element
-          btn.replaceWith(link);
-        })
-        .catch(err => {
-          console.error("Failed to fetch hack.js:", err);
-          btn.innerText = "❌ Failed to load script";
+    if (purchaseBtns.length && modal) {
+        purchaseBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const toolName = this.getAttribute('data-tool');
+                const toolPrice = this.parentElement.querySelector('.tool-price').textContent;
+                
+                modalToolName.textContent = toolName;
+                modalToolPrice.textContent = toolPrice;
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+            });
         });
-    });
-  });
 
-document.addEventListener("DOMContentLoaded", function () {
-    const newsBtn = document.getElementById("newsbtn");
-    newsBtn.addEventListener("click", function () {
-        window.location.href = "news.html";
-    });
-})
+        closeModal.addEventListener('click', function() {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
 
-document.addEventListener("DOMContentLoaded", function() {
-    const contactBtn = document.getElementById("contactUsbtn");
-    contactBtn.addEventListener("click", function () {
-        window.location.href = "contact.html";
-    })
-})
+        window.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+    }
 
-document.addEventListener("DOMContentLoaded", function() {
-    const submitBtn = document.getElementById("submitbtn");
-    const statusLabel = document.getElementById("statusContact");
+    // Contact form handling
+    const contactForm = document.getElementById('contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            const statusEl = document.getElementById('statusContact');
+            
+            submitBtn.disabled = true;
+            statusEl.textContent = 'Sending message...';
+            statusEl.style.color = 'var(--secondary-color)';
+            
+            try {
+                const formData = {
+                    name: contactForm.elements['name'].value.trim(),
+                    email: contactForm.elements['email'].value.trim(),
+                    message: contactForm.elements['message'].value.trim()
+                };
 
-    submitBtn.addEventListener("click", function () {
-        const name = document.getElementById("nameinput").value;
-        const email = document.getElementById("emailinput").value;
-        const message = document.getElementById("messageinput").value;
+                // Basic validation
+                if (!formData.name || !formData.email || !formData.message) {
+                    throw new Error('All fields are required');
+                }
 
-        if (name && email && message) {
-            statusLabel.innerText = `Status: Thank you for your message ${name}! We will be with you shortly.`;
-        } else {
-            alert("Please fill out all fields.");
+                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+                    throw new Error('Please enter a valid email address');
+                }
+
+                // In a real implementation, you would send this to your server
+                // For now, we'll simulate a successful submission
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                statusEl.textContent = 'Message sent successfully! We will contact you soon.';
+                statusEl.style.color = 'var(--success-color)';
+                contactForm.reset();
+            } catch (error) {
+                statusEl.textContent = `Error: ${error.message}`;
+                statusEl.style.color = 'var(--error-color)';
+            } finally {
+                submitBtn.disabled = false;
+            }
+        });
+    }
+
+    // Add active class to current page link
+    const currentPage = location.pathname.split('/').pop() || 'index.html';
+    const links = document.querySelectorAll('nav a');
+    
+    links.forEach(link => {
+        if (link.getAttribute('href') === currentPage) {
+            link.classList.add('active');
         }
     });
-});
-
-document.addEventListener("DOMContentLoaded", function() {
-    const kahackBtn = document.getElementById("kahootHackBtn");
-    kahackBtn.addEventListener("click", function () {
-        window.location.href = "kahoothack.user.js";
-    });
-});
-    
-
-document.addEventListener('DOMContentLoaded', () => {
-  const form = document.getElementById('contact-form');
-  const statusEl = document.getElementById('status');
-  const submitBtn = document.querySelector('#contact-form button[type="submit"]');
-  
-  if (!form || !submitBtn) return; 
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    try {
-      submitBtn.disabled = true;
-      statusEl.textContent = 'Sending message...';
-      statusEl.style.color = 'black';
-
-      const formData = {
-        name: form.elements['name'].value.trim(),
-        email: form.elements['email'].value.trim(),
-        message: form.elements['message'].value.trim()
-      };
-
-
-      if (!formData.name || !formData.email || !formData.message) {
-        throw new Error('All fields are required');
-      }
-
-
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-        throw new Error('Please enter a valid email address');
-      }
-
-      const response = await fetch('https://souuuulll.pythonanywhere.com/api/submit_contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData)
-      });
-
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
-      }
-
-      const result = await response.json();
-
-      statusEl.textContent = result.message || 'Message sent successfully!';
-      statusEl.style.color = 'green';
-      form.reset();
-
-      setTimeout(() => {
-        statusEl.textContent = '';
-      }, 5000);
-
-    } catch (error) {
-      statusEl.textContent = `Error: ${error.message}`;
-      statusEl.style.color = 'red';
-      console.error('Submission error:', error);
-    } finally {
-      submitBtn.disabled = false; 
-    }
-  });
 });
