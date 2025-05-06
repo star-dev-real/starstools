@@ -36,7 +36,7 @@ def contact():
             return jsonify({"error": "Missing required fields"}), 400
 
         contact_id = ''.join(random.choices(string.ascii_letters + string.digits, k=8))
-        
+
         contacts = get_contacts()
         contacts.append({
             "id": contact_id,
@@ -54,11 +54,11 @@ def contact():
     except Exception as e:
         app.logger.error(f"Error: {str(e)}")
         return jsonify({"error": "Internal server error"}), 500
-    
+
 @app.route('/')
 def index():
     return jsonify({"message": "Welcome to the Contact API"}), 200
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=8081)
+    app.run(debug=True, host='0.0.0.0', port=8088)
