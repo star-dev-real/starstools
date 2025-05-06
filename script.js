@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
                     throw new Error('Please enter a valid email address');
                 }
-                const response = await fetch('http://soulstools.pythonanywhere.com/api/v1/contact', {
+                const response = await fetch('https://soulstools.pythonanywhere.com/api/v1/contact', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
