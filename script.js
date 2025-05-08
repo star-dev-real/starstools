@@ -171,10 +171,6 @@ const blooks = [
            const log = document.getElementById('log');
            log.innerHTML = "Starting flood...<br>";
            
-           if (!gameId || gameId.length !== 7) {
-               log.innerHTML += "❌ Invalid Game ID! Must be 7 characters.<br>";
-               return;
-           }
            
            if (isNaN(numBots) || numBots < 1 || numBots > 500) {
                log.innerHTML += "❌ Please enter a valid number of bots (1-500).<br>";
