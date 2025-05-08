@@ -373,3 +373,111 @@ footer {
     }
 }
 
+.free-tools-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.tool-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: var(--secondary-color);
+}
+
+.form-input {
+    padding: 0.8rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(74, 107, 255, 0.2);
+}
+
+.flood-btn {
+    background: linear-gradient(135deg, #4a6bff, #6b8cff);
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.flood-btn:hover {
+    background: linear-gradient(135deg, #3a56d4, #5b7ae4);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(74, 107, 255, 0.3);
+}
+
+@media (max-width: 768px) {
+    .free-tools-container {
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+    
+    .form-input {
+        padding: 0.7rem;
+    }
+}
+
+
+.checkbox-group {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+#status {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: var(--light-color);
+    border-radius: var(--border-radius);
+    font-weight: 600;
+}
+
+.log-container {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    max-height: 300px;
+    overflow-y: auto;
+    font-family: monospace;
+    font-size: 0.9rem;
+}
+
+.log-container br {
+    display: block;
+    content: "";
+    margin: 0.5rem 0;
+}
+
+.status-message {
+    color: var(--primary-color);
+    font-weight: 600;
+    margin: 1rem 0;
+}
