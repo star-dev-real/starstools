@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
                     throw new Error('Please enter a valid email address');
                 }
-                const response = await fetch('http://souuuulll.pythonanywhere.com/api/v1/contact', {
+                const response = await fetch('https://soulstoolsreal.pythonanywhere.com/api/v1/contact', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -208,7 +208,6 @@ const blooks = [
                let submitName = botName;
                
    if (bypassFilter) {
-       // First create the obfuscated name without URI encoding
        submitName = botName
            .replace(/a/g, "\u0430")  // Cyrillic 'а'
            .replace(/c/g, "\u0441")  // Cyrillic 'с'

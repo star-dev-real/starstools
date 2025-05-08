@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free Flood Tool - Soul's Tools</title>
+    <title>Free Tools - Soul's Tools</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -13,10 +13,10 @@
         <nav>
             <a href="index.html">Home</a>
             <a href="tools.html">Tools</a>
-            <a href="free-tools.html" class="active">Free Tools</a>
             <a href="news.html">News</a>
             <a href="credits.html">Credits</a>
             <a href="contact.html">Contact</a>
+            <a href="free-tools.html" class="active">Free Tools</a>
         </nav>
         <div class="mobile-menu-btn">
             <i class="fas fa-bars"></i>
@@ -24,58 +24,14 @@
     </header>
 
     <main class="container">
-        <h1 class="page-title">Blooket Flood Tool</h1>
-        
+        <h1 class="page-title">Free Tools</h1>
+
         <div class="free-tools-container">
-            <div class="tool-form">
-                <div class="form-group">
-                    <label for="gcode">Game ID:</label>
-                    <input type="text" id="gcode" class="form-input" placeholder="Enter 7-character game ID">
+            <div class="tool-card">
+                <div class="free-tools-item">
+                    <li><a href="flooder.html">Blooket Flood Tool</a></li>
                 </div>
-
-                <div class="form-group">
-                    <label for="gname">Base Name:</label>
-                    <input type="text" id="gname" class="form-input" placeholder="Enter base name">
-                </div>
-
-                <div class="form-group">
-                    <label for="blookInput">Select Blook:</label>
-                    <input type="text" id="blookInput" class="form-input" list="blooksList" placeholder="Search blooks...">
-                    <datalist id="blooksList"></datalist>
-                </div>
-
-                <div class="form-group">
-                    <label for="gnum">Bot Amount:</label>
-                    <input type="number" id="gnum" class="form-input" placeholder="Number of bots (1-500)">
-                </div>
-
-                <div class="form-group">
-                    <label for="botmsg">Bot Message:</label>
-                    <input type="text" id="botmsg" class="form-input" placeholder="Enter chat message">
-                </div>
-
-                <div class="form-group checkbox-group">
-                    <input type="checkbox" id="bcf">
-                    <label for="bcf">Bypass Name Filter</label>
-                </div>
-
-                <button type="button" class="flood-btn" onclick="send()">Start Flood</button>
-                
-                <div id="status" class="status-message"></div>
-                <div id="log" class="log-container"></div>
             </div>
         </div>
     </main>
-
-    <footer>
-        <p>&copy; 2025 Soul's Tools. All rights reserved.</p>
-    </footer>
-
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-    
-    <script src="script.js"></script>
-</body>
 </html>

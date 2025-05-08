@@ -1,12 +1,10 @@
-from flask import Flask, request, jsonify
-from flask_cors import CORS
+from flask import Flask, render_template, request, jsonify
 import os
 import json
 import random
 import string
 
 app = Flask(__name__)
-CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 CONTACTS_FILE = 'contacts.json'
 if not os.path.exists(CONTACTS_FILE):
@@ -23,6 +21,10 @@ def get_contacts():
 def save_contacts(contacts):
     with open(CONTACTS_FILE, 'w') as f:
         json.dump(contacts, f, indent=2)
+
+@app.route('/')
+def home():
+    return render_template("index.html")
 
 @app.route('/api/v1/contact', methods=['POST'])
 def contact():
@@ -55,10 +57,5 @@ def contact():
         app.logger.error(f"Error: {str(e)}")
         return jsonify({"error": "Internal server error"}), 500
 
-@app.route('/')
-def index():
-    return jsonify({"message": "Welcome to the Contact API"}), 200
-
-
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=8088)
+    app.run(debug=True)
