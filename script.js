@@ -47,61 +47,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    const contactForm = document.getElementById('contact-form');
-    if (contactForm) {
-        contactForm.addEventListener('submit', async function(e) {
-            e.preventDefault(); 
-            
-            const submitBtn = contactForm.querySelector('button[type="submit"]');
-            const statusEl = document.getElementById('statusContact');
-            const formElements = contactForm.elements;
-
-            submitBtn.disabled = true;
-            statusEl.textContent = 'Sending message...';
-            statusEl.style.color = 'var(--secondary-color)';
-
-            try {
-                const formData = {
-                    name: formElements.name.value.trim(),
-                    email: formElements.email.value.trim(),
-                    message: formElements.message.value.trim()
-                };
-
-                if (!formData.name || !formData.email || !formData.message) {
-                    throw new Error('Please fill in all required fields');
-                }
-
-                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-                    throw new Error('Please enter a valid email address');
-                }
-                const response = await fetch('https://soulstoolsreal.pythonanywhere.com/api/v1/contact', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formData)
-                });
-
-                const responseText = await response.text();
-                const data = responseText ? JSON.parse(responseText) : {};
-
-                if (!response.ok) {
-                    throw new Error(data.error || `Server error: ${response.status}`);
-                }
-
-                statusEl.textContent = `Message sent successfully! ID: ${data.id}`;
-                statusEl.style.color = 'var(--success-color)';
-                contactForm.reset();
-
-            } catch (error) {
-                statusEl.textContent = `Error: ${error.message}`;
-                statusEl.style.color = 'var(--error-color)';
-                console.error('Submission error:', error);
-            } finally {
-                submitBtn.disabled = false;
-            }
-        });
-    }
 
     const currentPage = location.pathname.split('/').pop() || 'index.html';
     const links = document.querySelectorAll('nav a');
@@ -272,3 +217,4 @@ async function sendBot(gameId, botName, blook, bypassFilter, botMsg, log) {
         }
     }
 }
+
