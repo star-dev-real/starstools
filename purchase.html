@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Purchase - Soul's Tools</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="logo">Soul's Tools</div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="tools.html">Tools</a>
+            <a href="news.html">News</a>
+            <a href="credits.html">Credits</a>
+            <a href="contact.html">Contact</a>
+            <a href="free-tools.html">Free Tools</a>
+        </nav>
+        <div class="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </div>
+    </header>
+
+    <main class="container">
+        <h1 class="page-title">Complete Purchase</h1>
+
+            <div class="payment-methods">
+                <h2>Select Payment Method</h2>
+                <div class="payment-option">
+                    <input type="radio" name="payment" id="paypal" required>
+                    <label for="paypal">
+                        <img src="https://www.vectorlogo.zone/logos/paypal/paypal-icon.svg" alt="PayPal">
+                        PayPal
+                    </label>
+                </div>
+                <div class="payment-option">
+                    <input type="radio" name="payment" id="applepay">
+                    <label for="applepay">
+                        <img src="https://www.vectorlogo.zone/logos/apple/apple-tile.svg" alt="Apple Pay">
+                        Apple Pay
+                    </label>
+                </div>
+                <div class="payment-option">
+                    <input type="radio" name="payment" id="bank">
+                    <label for="bank">
+                        <img src="https://www.vectorlogo.zone/logos/visa/visa-icon.svg" alt="Bank Transfer">
+                        Bank Transfer
+                    </label>
+                </div>
+                <div class="payment-option">
+                    <input type="radio" name="payment" id="crypto">
+                    <label for="crypto">
+                        <img src="https://www.vectorlogo.zone/logos/bitcoin/bitcoin-icon.svg" alt="Crypto">
+                        Cryptocurrency
+                    </label>
+                </div>
+            </div>
+
+            <div class="email-input">
+                <label for="email">Enter your email for invoice:</label>
+                <input type="email" id="email" required placeholder="your@email.com">
+            </div>
+
+            <div class="invoice-section">
+                <p>Invoice ID: <span id="invoice-id"></span></p>
+            </div>
+
+            <button class="btn primary" onclick="processPayment()">Complete Purchase</button>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Soul's Tools. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

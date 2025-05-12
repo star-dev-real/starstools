@@ -218,3 +218,72 @@ async function sendBot(gameId, botName, blook, bypassFilter, botMsg, log) {
     }
 }
 
+
+    document.querySelectorAll('.purchase-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const toolCard = this.closest('.tool-card');
+            const toolName = this.dataset.tool;
+            const toolPrice = toolCard.querySelector('.tool-price').textContent;
+            const toolImage = toolCard.querySelector('.tool-image').style.backgroundImage
+                              .replace(/url\(['"]?(.*?)['"]?\)/, '$1');
+
+            const params = new URLSearchParams({
+                tool: toolName,
+                price: toolPrice,
+                image: encodeURIComponent(toolImage)
+            });
+
+            window.location.href = `purchase.html?${params.toString()}`;
+        });
+    });
+
+    const currentPage = location.pathname.split('/').pop() || 'index.html';
+    const links = document.querySelectorAll('nav a');
+    
+    links.forEach(link => {
+        if (link.getAttribute('href') === currentPage) {
+            link.classList.add('active');
+        }
+    });
+
+
+function generateInvoiceId() {
+    return 'INV-' + Math.random().toString(36).substr(2, 9).toUpperCase();
+}
+
+function processPayment() {
+    const email = document.getElementById('email').value;
+    const paymentMethod = document.querySelector('input[name="payment"]:checked');
+    const invoiceId = generateInvoiceId();
+    const invoiceDetails = {
+        email: email,
+        paymentMethod: paymentMethod ? paymentMethod.value : 'Not specified',
+        invoiceId: invoiceId
+    };
+    const setInvoice = document.getElementById('invoice-id');
+
+    setInvoice.innerHTML = `${invoiceId}`;
+}
+
+if(window.location.pathname.includes('purchase.html')) {
+    document.addEventListener('DOMContentLoaded', function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const toolName = urlParams.get('tool') || 'Selected Tool';
+        const toolPrice = urlParams.get('price') || '£0.00';
+        const toolImage = decodeURIComponent(urlParams.get('image') || '');
+
+        document.getElementById('purchase-tool-name').textContent = toolName;
+        document.getElementById('purchase-tool-price').textContent = toolPrice;
+        if(toolImage) {
+            document.getElementById('purchase-tool-image').style.backgroundImage = `url('${toolImage}')`;
+        }
+
+        document.getElementById('email').addEventListener('input', function(e) {
+            if(e.target.value.includes('@')) {
+                document.getElementById('invoice-id').textContent = generateInvoiceId();
+            }
+        });
+    });
+}
+
+
