@@ -1,129 +1,78 @@
-import requests
 import aiohttp
 import asyncio
 import json
 import os
 from colorama import Fore, Style, init
 import time
-from datetime import datetime
-import re
-from mitmproxy import http
-import webbrowser
-import winreg
-import ctypes
 import sys
-import subprocess
-import signal
+import ctypes
+import msvcrt
 
 init(autoreset=True)
-question = f"{Fore.YELLOW}[?]{Fore.RESET} "
 error = f"{Fore.RED}[!]{Fore.RESET} "
-info = f"{Fore.CYAN}[=]{Fore.RESET} "
 success = f"{Fore.GREEN}[+]{Fore.RESET} "
 process = f"{Fore.MAGENTA}[*]{Fore.RESET} "
 
-captured_token = None
-mitm_process = None
-token_captured_event = asyncio.Event()
+API_FILE = "api.json"
 
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
 
+async def async_get_key():
+    while True:
+        if msvcrt.kbhit():
+            key = msvcrt.getch()
+            if key == b'\xe0': 
+                key = msvcrt.getch()
+                return key
+            elif key == b'\r':  
+                return 'enter'
+        await asyncio.sleep(0.01)
 
+async def arrow_menu(options):
+    selected = 0
+    while True:
+        clear()
+        print(f"{process}Main Menu (Use ↑/↓ to navigate, Enter to select)\n")
+        for i, option in enumerate(options):
+            prefix = f"{Fore.CYAN}> " if i == selected else "  "
+            print(f"{prefix}{option}")
+        
+        key = await async_get_key()
+        
+        if key == b'H': 
+            selected = max(0, selected - 1)
+        elif key == b'P':  
+            selected = min(len(options)-1, selected + 1)
+        elif key == 'enter':
+            return selected
 
-
-async def key_system():
-    clear()
-    print(f"{question}Please enter your License Key: ")
-    key = input().strip()
-    if not key:
-        print(error + "Key cannot be empty!")
-        time.sleep(2)
-        sys.exit()
-    
+def load_api_data():
     try:
-        with open("keys.txt", "r") as f:
-            valid_keys = [k.strip() for k in f.readlines()]
-            if key in valid_keys:
-                print(success + "Key validated successfully!")
-                time.sleep(1)
-                return True
-    except FileNotFoundError:
-        print(error + "Key file missing! Contact support.")
-    
-    print(error + "Invalid license key!")
-    time.sleep(2)
-    sys.exit()
-
-def proxy_control(enable=True):
-    try:
-        with winreg.OpenKey(
-            winreg.HKEY_CURRENT_USER,
-            r"Software\Microsoft\Windows\CurrentVersion\Internet Settings",
-            0, winreg.KEY_WRITE
-        ) as key:
-            if enable:
-                winreg.SetValueEx(key, "ProxyEnable", 0, winreg.REG_DWORD, 1)
-                winreg.SetValueEx(key, "ProxyServer", 0, winreg.REG_SZ, "127.0.0.1:8080")
-                winreg.SetValueEx(key, "ProxyOverride", 0, winreg.REG_SZ, "<local>")
-            else:
-                winreg.SetValueEx(key, "ProxyEnable", 0, winreg.REG_DWORD, 0)
-            
-            internet_option_refresh()
-            return True
-    except Exception as e:
-        print(error + f"Proxy error: {str(e)}")
-        return False
-
-def internet_option_refresh():
-    INTERNET_OPTION_SETTINGS_CHANGED = 39
-    INTERNET_OPTION_REFRESH = 37
-    ctypes.windll.Wininet.InternetSetOptionW(0, INTERNET_OPTION_SETTINGS_CHANGED, 0, 0)
-    ctypes.windll.Wininet.InternetSetOptionW(0, INTERNET_OPTION_REFRESH, 0, 0)
-    ctypes.windll.user32.SendMessageTimeoutW(0xFFFF, 0x001A, 0, "Internet Settings", 0, 1000, 0)
-
-def request(flow: http.HTTPFlow):
-    global captured_token
-    if "api.bedrocklearning.org/api/students" in flow.request.url:
-        if flow.request.method == "GET" and "authorization" in flow.request.headers:
-            captured_token = flow.request.headers['authorization']
-            print(f"\n{success}TOKEN CAPTURED: {captured_token}")
-            proxy_control(enable=False)
-            validate_token(captured_token)
-            if mitm_process:
-                mitm_process.send_signal(signal.CTRL_C_EVENT)
-            token_captured_event.set()
-
-async def fetch_token():
-    global mitm_process
-    clear()
-    print(f"{process}Initializing MITM proxy...")
-    
-    if not proxy_control(enable=True):
-        print(error + "Failed to configure system proxy!")
+        with open(API_FILE, 'r') as f:
+            return json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
         return None
 
-    print(f"{info}Opening Bedrock Learning in browser...")
-    webbrowser.open("https://app.bedrocklearning.org")
+def save_api_data():
+    clear()
+    print(f"{process}API Configuration")
+    token = input("Enter your API token: ").strip()
+    url = input("Enter API URL: ").strip()
     
-    mitm_process = subprocess.Popen(
-        ["mitmdump", "-s", __file__, "--quiet"],
-        creationflags=subprocess.CREATE_NEW_PROCESS_GROUP
-    )
+    data = {
+        'token': token,
+        'api-url': url,
+        'timestamp': time.time()
+    }
     
-    try:
-        print(f"{process}Waiting for authentication... (Ctrl+C to cancel)")
-        await token_captured_event.wait()
-    except asyncio.CancelledError:
-        print(error + "Token capture cancelled")
-    finally:
-        proxy_control(enable=False)
-        if mitm_process and mitm_process.poll() is None:
-            mitm_process.terminate()
+    with open(API_FILE, 'w') as f:
+        json.dump(data, f)
     
-    return captured_token
+    print(f"{success}Credentials saved to {API_FILE}")
+    time.sleep(1.5)
 
-async def validate_token(token: str):
+async def validate_token(token: str, api_url: str):
     headers = {
         'authorization': token,
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
@@ -131,10 +80,7 @@ async def validate_token(token: str):
     
     try:
         async with aiohttp.ClientSession() as session:
-            async with session.get(
-                'https://api.bedrocklearning.org/api/students/784fcca8-9125-4fcc-81c8-c1ebab8abfcc/dashboard',
-                headers=headers
-            ) as response:
+            async with session.get(api_url, headers=headers) as response:
                 if response.status == 200:
                     data = await response.json()
                     return {
@@ -147,60 +93,150 @@ async def validate_token(token: str):
     except Exception as e:
         return {'valid': False, 'error': str(e)}
 
+async def hacks(token: str):
+    clear()
+    menu_options = [
+        "Change Score",
+        "Spam API",
+        "Complete Homework",
+        "Exit"
+    ]
+    
+    while True:
+        selected = await arrow_menu(menu_options)
+        
+        if selected == 0:
+            print("This is being worked on.")
+            time.sleep(0.5)
+            input("Press Enter to return to menu...")
+            continue
+        elif selected == 1:
+            clear()
+            print(f"""{Fore.CYAN}███████╗██████╗     ██╗  ██╗ █████╗  ██████╗██╗  ██╗███████╗
+        ██╔════╝██╔══██╗    ██║  ██║██╔══██╗██╔════╝██║ ██╔╝██╔════╝
+        ███████╗██║  ██║    ███████║███████║██║     █████╔╝ ███████╗
+        ╚════██║██║  ██║    ██╔══██║██╔══██║██║     ██╔═██╗ ╚════██║
+        ███████║██████╔╝    ██║  ██║██║  ██║╚██████╗██║  ██╗███████║
+        ╚══════╝╚═════╝     ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝╚══════╝""")
+            await asyncio.sleep(2)
+            print(f"{process}Spamming API...")
+            headers = {
+                'authorization': token,
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+            }
+            async with aiohttp.ClientSession() as session:
+                amt = 0
+                amount = int(input("Enter the number of requests to send to the server: "))
+                if amount <= 0:
+                    print(error + "Invalid amount!")
+                    time.sleep(1.5)
+                    return False
+                for i in range(amount):
+                    try:
+                        async with session.get("https://api.bedrocklearning.org/api/sitemessages", headers=headers) as response:
+                            if response.status == 200:
+                                amt += 1
+                                print(f"{success}Sent {amt}/{amount} requests.")
+                            else:
+                                print(error + f"Failed to send request: {response.status}")
+                    except Exception as e:
+                        print(error + f"Error: {str(e)}")
+                    await asyncio.sleep(0.1)
+                input("Press Enter to return to menu...")
+                continue
+        elif selected == 2:
+            print("This is being worked on.")
+            time.sleep(0.5)
+            input("Press Enter to return to menu...")
+            continue
+        elif selected == 3:
+            print(f"{success}Exiting...")
+            sys.exit()
+
+    
+
 async def display_dashboard(data):
     clear()
     print(f"{success}Welcome {data['name']}!")
-    print(f"{info}School: {data['school']}")
-    print(f"{info}Total Points: {data['data'].get('points', 0)}")
-    print(f"{info}Weekly Progress: {data['data'].get('pointsWeek', 0)} points")
+    print(f"{process}School: {data['school']} (ID: {data['data'].get('schoolID', 'Unknown')})")
+    print(f"{process}Username: {data['data'].get('username', 'Unknwown')}")
+    print(f"{process}Total Points: {data['data'].get('points', 0)}")
+    print(f"{process}Total Time: {data['data'].get('time', 'Unknown')}")
+    print(f"{process}Last Online: {data['data'].get('lastActive', 'Unknown')}")
+    print(f"{process}Weekly Progress: {data['data'].get('pointsWeek', 0)}")
+
+    with open("userapi.json", "w") as f:
+        f.truncate(0)
+        json.dump(data, f, indent=4)
     
     if 'blocks' in data['data']:
         print(f"\n{process}Recent Activity:")
         for block in data['data']['blocks'][:3]:
             print(f"• {block.get('name', 'Unnamed Block')}")
     
-    input("\nPress Enter to continue...")
+    input("\nPress Enter to return to menu...")
 
-async def main_flow():
+async def check_api_json():
+    api_data = load_api_data()
+    if not api_data:
+        print(error + "No API configuration found!")
+        time.sleep(1.5)
+        return False
+    
+    print(f"{process}Validating API credentials...")
+    validation = await validate_token(api_data['token'], api_data['api-url'])
+    
+    if not validation['valid']:
+        print(error + f"Validation failed: {validation.get('error', 'Unknown error')}")
+        time.sleep(2)
+        return False
+    
+    await display_dashboard(validation)
+    return True
+
+async def main_menu():
+    menu_options = [
+        "Configure API Credentials",
+        "Check API Connection",
+        "Hacks",
+        "Exit"
+    ]
+    
     while True:
-        clear()
-        print(f"""
-        {Fore.CYAN}Bedrock Learning Toolkit
-        {Fore.YELLOW}-------------------------
-        {question}[1] Enter Existing Token
-        {question}[2] Auto-Capture Token
-        {question}[3] Exit
-        """)
+        selected = await arrow_menu(menu_options)
         
-        choice = input(f"{process}Select option: ").strip()
-        
-        token = None
-        if choice == "1":
-            token = input(f"{question}Enter Bearer token: ").strip()
-            if not token.startswith("Bearer "):
-                token = f"Bearer {token}"
-        elif choice == "2":
-            token = await fetch_token()
-            if not token:
-                print(error + "No token captured!")
-                time.sleep(2)
+        if selected == 0:
+            save_api_data()
+        elif selected == 1:
+            if await check_api_json():
                 continue
-        elif choice == "3":
+        elif selected == 2:
+            with open("api.json", "r") as f:
+                api_data = json.load(f)
+                if not api_data:
+                    print(error + "No API data found!")
+                    time.sleep(1.5)
+                    return False
+                token = api_data['token']
+            await hacks(token)
+        elif selected == 3:
+            print(f"{success}Exiting...")
             sys.exit()
-        else:
-            print(error + "Invalid selection!")
-            time.sleep(1)
-            continue
-        
-        print(f"{process}Validating token...")
-        validation = await validate_token(token)
-        
-        if not validation['valid']:
-            print(error + f"Token validation failed: {validation.get('error', 'Unknown error')}")
-            time.sleep(2)
-            continue
-        
-        await display_dashboard(validation)
+
+async def key_system():
+    clear()
+    print(f"{process}License Key Check")
+    try:
+        with open("keys.txt", "r") as f:
+            valid_keys = [k.strip() for k in f.readlines()]
+            if not valid_keys:
+                print(error + "No valid keys in keys.txt")
+                time.sleep(2)
+                sys.exit()
+    except FileNotFoundError:
+        print(error + "Key file missing! Contact support.")
+        time.sleep(2)
+        sys.exit()
 
 async def main():
     if not ctypes.windll.shell32.IsUserAnAdmin():
@@ -208,7 +244,7 @@ async def main():
         sys.exit()
     
     await key_system()
-    await main_flow()
+    await main_menu()
 
 if __name__ == "__main__":
     asyncio.run(main())
