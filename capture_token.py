@@ -12,3 +12,4 @@ def request(flow: http.HTTPFlow):
                 json.dump({"token": token, "url": url}, f)
             print(f"\nTOKEN_CAPTURED::{token}::{url}")
             os.kill(os.getppid(), signal.SIGTERM)
+
