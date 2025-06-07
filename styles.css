@@ -373,7 +373,7 @@ footer {
     }
 }
 
-.free-tools-container {
+.other-tools-container {
     max-width: 600px;
     margin: 2rem auto;
     padding: 2rem;
@@ -433,7 +433,7 @@ footer {
 }
 
 @media (max-width: 768px) {
-    .free-tools-container {
+    .other-tools-container {
         padding: 1.5rem;
         margin: 1rem;
     }
@@ -482,12 +482,12 @@ footer {
     margin: 1rem 0;
 }
 
-.free-tools-list {
+.other-tools-list {
     display: flex;
     flex-direction: column;
     gap: 1rem;
 }
-.free-tool-item {
+.other-tool-item {
     background-color: white;
     padding: 1.5rem;
     border-radius: var(--border-radius);
@@ -497,7 +497,7 @@ footer {
     align-items: center;
 }
 
-.free-tools-item {
+.other-tools-item {
     display: flex;
     align-items: center;
     gap: 1rem;

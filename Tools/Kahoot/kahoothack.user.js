@@ -436,7 +436,7 @@ githubLabel.style.color = 'white';
 githubContainer.appendChild(githubLabel);
 
 const githubUrl = document.createElement('a');
-githubUrl.textContent = 'Soul (Star)';
+githubUrl.textContent = 'Star (Star)';
 githubUrl.href = 'https://github.com/star-dev-real';
 githubUrl.target = '_blank';
 githubUrl.style.fontFamily = '"Montserrat", "Noto Sans Arabic", "Helvetica Neue", Helvetica, Arial, sans-serif;';

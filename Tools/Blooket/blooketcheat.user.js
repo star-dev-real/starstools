@@ -2926,7 +2926,7 @@
                         o ? (t.state.blooks.length >= 10 && alert("Choose a blook to replace"), t.chooseBlook(o)) : alert("That is not a valid blook!")
                     }
                 }, {
-                    name: "Free Upgrades",
+                    name: "other Upgrades",
                     description: "Sets upgrade prices to 0 for all current blooks",
                     run: function() {
                         Object.values(document.querySelector("body div[id] > div > div"))[1].children[0]._owner.stateNode.setState(e => ({
