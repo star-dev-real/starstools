@@ -1062,7 +1062,7 @@
         return returnVar;
     }
   
-    // @ts-ignore (can't be bothered to figure out how to import this)
+    // @ts-ignore (can't be bOthered to figure out how to import this)
     class SocketHandler extends EventTarget {
         constructor(cheat) {
             super();
@@ -1180,7 +1180,7 @@
                     continue;
                 if (bind.keys.size == 0)
                     continue;
-                // if the bind is exclusive, make sure no other keys are pressed
+                // if the bind is exclusive, make sure no Other keys are pressed
                 if (bind.exclusive && bind.keys.size != this.keys.size)
                     continue;
                 // check whether the keys in the bind are pressed

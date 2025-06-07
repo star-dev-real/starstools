@@ -447,7 +447,7 @@
                     }
                 }, {
                     name: "Lobbychat",
-                    description: "Chat with other people and execute commands",
+                    description: "Chat with Other people and execute commands",
                     run: function() {
                         if (window.run) {
                             return;
@@ -1141,7 +1141,7 @@
                     }
                 }, {
                     name: "Send Ad Text",
-                    description: "Sends a load of text to another player (This will override your blook!)",
+                    description: "Sends a load of text to anOther player (This will override your blook!)",
                     run: async function() {
                         var player = window.prompt("Enter the player's name:");
                         var text = window.prompt("Enter the text to send:");
@@ -1527,7 +1527,7 @@
                     }
                 }, {
                     name: "Crash Password",
-                    description: "Crashes other players when they attempt to hack you",
+                    description: "Crashes Other players when they attempt to hack you",
                     type: "toggle",
                     enabled: !1,
                     data: null,
@@ -1552,7 +1552,7 @@
                     }
                 }, {
                     name: "Set Freeze Password",
-                    description: "Freezes other players when they attempt to hack you",
+                    description: "Freezes Other players when they attempt to hack you",
                     type: "toggle",
                     enabled: !1,
                     data: null,
@@ -1752,7 +1752,7 @@
                     }
                 }, {
                     name: "Send Ad Text",
-                    description: "Sends a load of text to another player (This will override your blook!)",
+                    description: "Sends a load of text to anOther player (This will override your blook!)",
                     run: async function() {
                         var player = window.prompt("Enter the player's name:");
                         var blook = window.prompt("Enter the text to send:");
@@ -2926,7 +2926,7 @@
                         o ? (t.state.blooks.length >= 10 && alert("Choose a blook to replace"), t.chooseBlook(o)) : alert("That is not a valid blook!")
                     }
                 }, {
-                    name: "other Upgrades",
+                    name: "Other Upgrades",
                     description: "Sets upgrade prices to 0 for all current blooks",
                     run: function() {
                         Object.values(document.querySelector("body div[id] > div > div"))[1].children[0]._owner.stateNode.setState(e => ({
@@ -3713,7 +3713,7 @@
                     }
                 }, {
                     name: "Send Ad Text",
-                    description: "Sends a load of text to another player (This will override your blook!)",
+                    description: "Sends a load of text to anOther player (This will override your blook!)",
                     run: function() {
                         var player = window.prompt("Enter the player's name:");
                         var text = window.prompt("Enter the text to send:");

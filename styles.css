@@ -373,7 +373,7 @@ footer {
     }
 }
 
-.other-tools-container {
+.Other-tools-container {
     max-width: 600px;
     margin: 2rem auto;
     padding: 2rem;
@@ -433,7 +433,7 @@ footer {
 }
 
 @media (max-width: 768px) {
-    .other-tools-container {
+    .Other-tools-container {
         padding: 1.5rem;
         margin: 1rem;
     }
@@ -482,12 +482,12 @@ footer {
     margin: 1rem 0;
 }
 
-.other-tools-list {
+.Other-tools-list {
     display: flex;
     flex-direction: column;
     gap: 1rem;
 }
-.other-tool-item {
+.Other-tool-item {
     background-color: white;
     padding: 1.5rem;
     border-radius: var(--border-radius);
@@ -497,7 +497,7 @@ footer {
     align-items: center;
 }
 
-.other-tools-item {
+.Other-tools-item {
     display: flex;
     align-items: center;
     gap: 1rem;
