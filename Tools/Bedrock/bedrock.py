@@ -7,6 +7,7 @@ import time
 import sys
 import ctypes
 import msvcrt
+import subprocess
 
 init(autoreset=True)
 error = f"{Fore.RED}[!]{Fore.RESET} "
@@ -96,9 +97,9 @@ async def validate_token(token: str, api_url: str):
 async def hacks(token: str):
     clear()
     menu_options = [
-        "Change Score",
         "Spam API",
         "Complete Homework",
+        "Change Points (time, points etc)",
         "Exit"
     ]
     
@@ -106,11 +107,6 @@ async def hacks(token: str):
         selected = await arrow_menu(menu_options)
         
         if selected == 0:
-            print("This is being worked on.")
-            time.sleep(0.5)
-            input("Press Enter to return to menu...")
-            continue
-        elif selected == 1:
             clear()
             print(f"""{Fore.CYAN}███████╗██████╗     ██╗  ██╗ █████╗  ██████╗██╗  ██╗███████╗
         ██╔════╝██╔══██╗    ██║  ██║██╔══██╗██╔════╝██║ ██╔╝██╔════╝
@@ -144,11 +140,26 @@ async def hacks(token: str):
                     await asyncio.sleep(0.1)
                 input("Press Enter to return to menu...")
                 continue
-        elif selected == 2:
+        elif selected == 1:
             print("This is being worked on.")
             time.sleep(0.5)
             input("Press Enter to return to menu...")
             continue
+        elif selected == 2:
+            amount = int(input("Enter the score you want: "))
+            with open('config.json', 'w') as f:
+                data = {"amount": amount}
+                json.dump(data, f)
+            mitm_script = "edit.py"
+
+            command = [
+                "mitmproxy",  
+                "-s", mitm_script,
+                "--listen-port", "8080"  
+            ]
+
+            process = subprocess.Popen(command, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
         elif selected == 3:
             print(f"{success}Exiting...")
             sys.exit()
