@@ -19,7 +19,14 @@ def clear():
 DEFAULT_SETTINGS = {
     "proxy_config": {
         "ip": "127.0.0.1",
-        "port": 8082
+        "port": 8192
+    },
+    "mitmproxy_config": {
+        "windows_cert": "http://mitm.it/cert/p12",
+        "linux_cert": "http://mitm.it/cert/pem",
+        "mac_cert": "http://mitm.it/cert/pem",
+        "ios_cert": "http://mitm.it/cert/pem",
+        "android_cert": "http://mitm.it/cert/cer"
     },
     "tools": {
         "bedrock": {
@@ -93,6 +100,22 @@ def sparx_details(config):
         sparx.get('sparx_login', "https://www.sparx.co.uk/login")
     )
 
+def cert_details(config):
+    if not config:
+        return "http://mitm.it/cert/p12"
+    mitmproxy = config.get('mitmproxy_config', {})
+    windows_cert = mitmproxy.get('windows_cert', "http://mitm.it/cert/p12")
+    linux_cert = mitmproxy.get('linux_cert', "http://mitm.it/cert/pem")
+    mac_cert = mitmproxy.get('mac_cert', "http://mitm.it/cert/pem")
+    ios_cert = mitmproxy.get('ios_cert', "http://mitm.it/cert/pem")
+    android_cert = mitmproxy.get('android_cert', "http://mitm.it/cert/cer")
+    return (
+        windows_cert,
+        linux_cert,
+        mac_cert,
+        ios_cert,
+        android_cert
+    )
 
 
 def set_proxy(ip, port):
@@ -141,6 +164,9 @@ class Bedrock:
 
     def enable_proxy(self):
         set_proxy(self.proxy_ip, self.proxy_port)
+
+    def disable_proxy(self):
+        disable_proxy()
 
     def print_header(self):
         print("""
@@ -209,13 +235,13 @@ class Bedrock:
                     "success": True,
                     "tryagain": False,
                     "audio": data.get("audio"),
-                    "message": data.get("message"),
+                    "message": f"{"Auto Answered by Star!" if data.get('message') == "Sorry, that is incorrect." else data.get('message')}",
                     "image": data.get("image"),
                     "studentResponse": data.get("studentResponse"),
                     "correctResponse": data.get("correctResponse"),
-                    "hideFeedback": data.get("hideFeedback"),
+                    "hideFeedback": False,
                     "lessonFinished": data.get("lessonFinished"),
-                    "endWithResults": data.get("endWithResults"),
+                    "endWithResults": False,
                     "stage": data.get("stage"),
                     "topicFeedback": data,
                     "oneOffActivity": data.get("oneOffActivity"),
@@ -234,44 +260,45 @@ class Bedrock:
         except:
             pass
 
-        try:
-            if "https://api.bedrocklearning.org/api/students" in url and "history" in url:
-                data = json.loads(flow.response.content.decode("utf-8"))
-                lessons = []
-                blocks = ["Block 8", "Block 9"]
+        if "https://api.bedrocklearning.org/api/students" in flow.request.pretty_url and "history" in flow.request.pretty_url and flow.request.method == "GET":
+            try:
+                response_text = flow.response.text.decode('utf-8')
+                data = json.loads(response_text)
 
-                for i in range(1, 101): 
-                    selected_block = random.choice(blocks)
-                    random_date = (
-                        f"{random.randint(2023, 2025)}-"
-                        f"{random.randint(1, 12):02d}-"
-                        f"{random.randint(1, 28):02d}"
-                        f"T{random.randint(0, 23):02d}:{random.randint(0, 59):02d}:{random.randint(0, 59):02d}."
-                        f"{random.randint(0, 999):03d}"
-                    )
-                    lessons.append({
+                result = data['result']
+
+                for r in result:
+                    r['score'] = 100.0
+                    r['start'] = "2017-04-20T12:12:50.077"
+                    r['finish'] = "2017-04-20T12:15:25.670"
+
+                for i in range(100):
+                    new_result = {
                         "learningType": "LESSON",
-                        "start": random_date,
-                        "finish": random_date,
+                        "start": "2017-04-20T12:12:50.077",
+                        "finish": "2017-04-20T12:15:25.670",
                         "score": 100.0,
-                        "blockName": selected_block,
-                        "topicName": f"{'B 8' if selected_block == 'Block 8' else 'Block 9'} T 1: Star Bedrock, Star",
-                        "learningName": f"Lesson {i}"
-                    })
+                        "blockName": "Block 69",
+                        "topicName": f"B 69 T {i + 1}: Auto Complete by Star",
+                        "learningName": f"Lesson {i + 1}"
+                    }
+                    result.append(new_result)
 
-                data["results"] = lessons
-                data["totalCount"] = len(data["results"])
-                data["totalPages"] = (len(data["results"]) + 19) // 20
-                flow.response.content = json.dumps(data).encode("utf-8")
-        except:
-            pass
+                data['totalCount'] = len(result)
+                data['totalPages'] = (len(result) + 19) // 20 
+
+                flow.response.text = json.dumps(data, indent=4).encode('utf-8')
+
+            except Exception as e:
+                print("Error modifying Bedrock data:", e)
+
 
     async def run_proxy(self):
         opts = options.Options(listen_host=self.proxy_ip,
                             listen_port=self.proxy_port,
                             ssl_insecure=True)
         master = DumpMaster(opts, with_termlog=False, with_dumper=False)
-        master.addons.add(MitmAddon(self))  
+        master.addons.add(BedrockAddon(self))  
         await master.run()
 
     def start_proxy(self):
@@ -358,6 +385,9 @@ class SparxMaths:
     def enable_proxy(self):
         set_proxy(self.proxy_ip, self.proxy_port)
 
+    def disable_proxy(self):
+        disable_proxy()
+
     def print_header(self):
         print("""███████╗████████╗ █████╗ ██████╗     ███████╗██████╗  █████╗ ██████╗ ██╗  ██╗
 ██╔════╝╚══██╔══╝██╔══██╗██╔══██╗    ██╔════╝██╔══██╗██╔══██╗██╔══██╗╚██╗██╔╝
@@ -381,8 +411,9 @@ $7a66c3d8-1e14-439f-9113-4104898da875...\xfd\x92\xec\xc2..̭\xdb\xe6.\x80....grp
         opts = options.Options(listen_host=self.proxy_ip,
                             listen_port=self.proxy_port,
                             ssl_insecure=True)
+
         master = DumpMaster(opts, with_termlog=False, with_dumper=False)
-        master.addons.add(MitmAddon(self))  
+        master.addons.add(SparxAddon(self))  
         await master.run()
 
     def start_proxy(self):
@@ -467,6 +498,9 @@ class Blooket:
     def enable_proxy(self):
         set_proxy(self.proxy_ip, self.proxy_port)
 
+    def disable_proxy(self):
+        disable_proxy()
+
     def print_header(self):
         print("""███████╗████████╗ █████╗ ██████╗     ██████╗ ██╗      ██████╗  ██████╗ ██╗  ██╗███████╗████████╗
 ██╔════╝╚══██╔══╝██╔══██╗██╔══██╗    ██╔══██╗██║     ██╔═══██╗██╔═══██╗██║ ██╔╝██╔════╝╚══██╔══╝
@@ -482,26 +516,25 @@ class Blooket:
         print("[2] Exit")
 
     def request(self, flow: http.HTTPFlow):
-        if self.unlock_all:
-            if "blooket.com/api/users/unlocks" in flow.request.pretty_url and flow.request.method == "GET":
-                response_text = flow.response.content.decode("utf-8")
-                data = json.loads(response_text)
+        if "blooket.com/api/users/unlocks" in flow.request.pretty_url:
+            try:
+                data = json.loads(flow.response.content)
 
-                new_data = {
-    "unlocks": self.blooks,
-    "customBlooks": self.custom_blooks,
-    "name": data.get("name", ""),
-    "banner": data.get("banner", ""),
-}
-                
-                flow.response.content = json.dumps(new_data).encode("utf-8")
+                data["unlocks"] = self.blooks
+
+                data["customBlooks"] = self.custom_blooks
+
+                flow.response.text = json.dumps(data)
+            except Exception as e:
+                print("[ERROR] Failed to patch blooks:", e)
 
     async def run_proxy(self):
         opts = options.Options(listen_host=self.proxy_ip,
                             listen_port=self.proxy_port,
                             ssl_insecure=True)
+
         master = DumpMaster(opts, with_termlog=False, with_dumper=False)
-        master.addons.add(MitmAddon(self))  
+        master.addons.add(BlooketAddon(self)) 
         await master.run()
 
     def start_proxy(self):
@@ -559,7 +592,108 @@ class Blooket:
             print("\nShutting down proxy...")
             disable_proxy()
 
-class MitmAddon:
+
+class Certificates:
+    def __init__(self, config_file='settings.json'):
+        config_file = os.path.join(os.path.dirname(__file__), config_file)
+        self.config = load_config(config_file)
+        if not self.config:
+            print("Failed to load configuration.")
+            exit(1)
+
+        self.windows_cert = "http://mitm.it/cert/p12"
+
+        self.proxy_ip, self.proxy_port = proxy_details(self.config)
+
+    def enable_proxy(self):
+        set_proxy(self.proxy_ip, self.proxy_port)
+
+    def disable_proxy(self):
+        disable_proxy()
+
+    def clear(self):
+        os.system("cls" if os.name == "nt" else "clear")
+
+    async def run_proxy(self):
+        opts = options.Options(
+            listen_host=self.proxy_ip,
+            listen_port=self.proxy_port,
+            ssl_insecure=True
+        )
+        self.master = DumpMaster(opts, with_termlog=False, with_dumper=False)
+        self.master.addons.add(CertificatesAddon(self))
+        await self.master.run()
+
+    def start_proxy(self):
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        try:
+            loop.run_until_complete(self.run_proxy())
+        except KeyboardInterrupt:
+            pass
+        finally:
+            loop.close()
+
+    def print_header(self):
+        print("""███████╗████████╗ █████╗ ██████╗      ██████╗███████╗██████╗ ████████╗███████╗
+██╔════╝╚══██╔══╝██╔══██╗██╔══██╗    ██╔════╝██╔════╝██╔══██╗╚══██╔══╝██╔════╝
+███████╗   ██║   ███████║██████╔╝    ██║     █████╗  ██████╔╝   ██║   ███████╗
+╚════██║   ██║   ██╔══██║██╔══██╗    ██║     ██╔══╝  ██╔══██╗   ██║   ╚════██║
+███████║   ██║   ██║  ██║██║  ██║    ╚██████╗███████╗██║  ██║   ██║   ███████║
+╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝     ╚═════╝╚══════╝╚═╝  ╚═╝   ╚═╝   ╚══════╝
+                                                                              """)
+        print()
+
+    def print_menu(self):
+        print("[0] Install Windows Certificate")
+        print("[1] Exit\n")
+
+    def menu(self):
+        while True:
+            self.clear()
+            self.print_header()
+            self.print_menu()
+            try:
+                choice = int(input(" Enter your choice: ").strip())
+                if choice == 0:
+                    self.clear()
+                    break
+                elif choice == 1:
+                    print("\nExiting...\n")
+                    time.sleep(1)
+                    exit()
+                else:
+                    print("\nInvalid input. Try again.")
+                    time.sleep(1.5)
+            except ValueError:
+                print("\nInvalid input. Try again.")
+                time.sleep(1.5)
+        try:
+            proxy_thread = threading.Thread(target=self.start_proxy, daemon=True)
+            proxy_thread.start()
+
+            time.sleep(2)
+
+            webbrowser.open("http://mitm.it/cert/p12")
+            print(f"Certificate installation link opened in your browser: http://mitm.it/cert/p12")
+
+        except Exception as e:
+            print(f"Failed to open certificate link: {str(e)}")
+
+        try:
+            while True:
+                time.sleep(1)
+        except KeyboardInterrupt:
+            print("\nShutting down proxy...")
+            self.disable_proxy()
+
+
+    def run(self):
+        self.menu()
+
+
+class BedrockAddon:
+
     def __init__(self, bedrock):
         self.bedrock = bedrock
 
@@ -568,6 +702,40 @@ class MitmAddon:
 
     def response(self, flow):
         self.bedrock.response(flow)
+
+class SparxAddon:
+
+    def __init__(self, sparxmaths):
+        self.sparx = sparxmaths
+
+    def request(self, flow):
+        self.sparx.request(flow)
+
+    def response(self, flow):
+        self.sparx.response(flow)
+
+class BlooketAddon:
+
+    def __init__(self, blooket):
+        self.blooket = blooket
+
+    def request(self, flow):
+        self.blooket.request(flow)
+
+    def response(self, flow):
+        self.blooket.response(flow)
+
+class CertificatesAddon:
+
+    def __init__(self, certificates):
+        self.certificates = certificates
+
+    def request(self, flow):
+        self.certificates.request(flow)
+
+    def response(self, flow):
+        self.certificates.response(flow)
+
 
 def main():
     while True:
@@ -582,7 +750,8 @@ def main():
         print("[1] Bedrock Tool")
         print("[2] Sparx Maths Tool")
         print("[3] Blooket Tool")
-        print("[4] Exit\n")
+        print("[4] Install Certificates")
+        print("[5] Exit\n")
         choice = input("Select an option: ").strip()
         
         if choice == "1":
@@ -591,6 +760,12 @@ def main():
             SparxMaths().run()
         elif choice == "3":
             Blooket().run()
+        elif choice == "4":
+            Certificates().run()
+        elif choice == "5":
+            print("\nExiting...\n")
+            time.sleep(1)
+            exit()
 
 if __name__ == "__main__":
     main()
