@@ -1,10 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
     const nav = document.querySelector('nav');
-    
+
     if (mobileMenuBtn && nav) {
         mobileMenuBtn.addEventListener('click', function() {
             nav.classList.toggle('show');
+            mobileMenuBtn.classList.toggle('active'); // optional: toggle active class on button for styling
         });
     }
 
@@ -12,6 +13,9 @@ document.addEventListener('DOMContentLoaded', function() {
     navLinks.forEach(link => {
         link.addEventListener('click', function() {
             nav.classList.remove('show');
+            if (mobileMenuBtn) {
+                mobileMenuBtn.classList.remove('active');
+            }
         });
     });
 
@@ -26,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
             btn.addEventListener('click', function() {
                 const toolName = this.getAttribute('data-tool');
                 const toolPrice = this.parentElement.querySelector('.tool-price').textContent;
-                
+
                 modalToolName.textContent = toolName;
                 modalToolPrice.textContent = toolPrice;
                 modal.style.display = 'flex';
@@ -34,10 +38,12 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
-        closeModal.addEventListener('click', function() {
-            modal.style.display = 'none';
-            document.body.style.overflow = 'auto';
-        });
+        if (closeModal) {
+            closeModal.addEventListener('click', function() {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+        }
 
         window.addEventListener('click', function(e) {
             if (e.target === modal) {
@@ -47,10 +53,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-
+    // Highlight current page link in nav
     const currentPage = location.pathname.split('/').pop() || 'index.html';
     const links = document.querySelectorAll('nav a');
-    
     links.forEach(link => {
         if (link.getAttribute('href') === currentPage) {
             link.classList.add('active');
